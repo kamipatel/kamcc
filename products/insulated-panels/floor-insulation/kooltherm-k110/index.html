@@ -62,8 +62,6 @@
     </form>
   </div>
 
-  <!-- Invisible iframe to prevent redirect -->
-  <iframe name="hidden_iframe" style="display:none;" onload="onFormSubmit()"></iframe>
 
   <script>
     function getExternalIdFromUrl() {
@@ -90,6 +88,9 @@
       }
     }
   </script>
+
+  <!-- Invisible iframe to prevent redirect -->
+  <iframe name="hidden_iframe" style="display:none;" onload="onFormSubmit()"></iframe>
   
 </body>
 </html>
