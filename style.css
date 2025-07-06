@@ -1,0 +1,109 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+header {
+  background-color: #003366;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+nav.breadcrumb {
+  font-size: 14px;
+  margin: 1rem 2rem;
+}
+
+nav.breadcrumb a {
+  margin-right: 5px;
+}
+
+h1 {
+  color: #003366;
+  margin: 0 0 1rem 0;
+}
+
+ul {
+  line-height: 1.6;
+}
+
+.container {
+  background: white;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+footer {
+  margin: 2rem;
+  font-size: 12px;
+  color: #888;
+}
+
+#enquiry-btn {
+  margin: 2rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  background-color: #0070d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#enquiry-btn:hover {
+  background-color: #005fb2;
+}
+
+/* Enquiry Form */
+.form-popup {
+  display: none;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  z-index: 9999;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+}
+
+.form-popup h3 {
+  margin-top: 0;
+  color: #003366;
+}
+
+.form-popup input,
+.form-popup textarea {
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-popup button {
+  padding: 0.6rem 1.2rem;
+  background: #0070d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-popup .close-btn {
+  background: #aaa;
+  float: right;
+}
