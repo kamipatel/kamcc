@@ -79,14 +79,15 @@
       document.getElementById("enquiryForm").style.display = "none";
     }
 
-    function onFormSubmit() {
-      // Called when iframe loads after form POST
-      const form = document.getElementById("leadForm");
-      if (form.style.display !== "none") {
-        console.log("✅ Lead submitted!");
-        closeEnquiryForm();
-      }
+  window.onFormSubmit = function () {
+    const form = document.getElementById("leadForm");
+    if (document.getElementById("enquiryForm").style.display !== "none") {
+      console.log("✅ Lead submitted!");
+      alert("✅ Thank you! Your enquiry has been submitted. Our team will contact you shortly.");
+      document.getElementById("enquiryForm").style.display = "none";
     }
+  };
+    
   </script>
 
   <!-- Invisible iframe to prevent redirect -->
