@@ -3,30 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>Kooltherm K110</title>
-  <style>
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; color: #333; }
-a { color: #0077cc; text-decoration: none; }
-header { background-color: #003366; color: white; padding: 1rem 2rem; }
-nav.breadcrumb { font-size: 14px; margin: 1rem 2rem; }
-nav.breadcrumb a { margin-right: 5px; }
-h1 { color: #003366; margin: 0 0 1rem 0; }
-ul { line-height: 1.6; }
-.container { background: white; padding: 2rem; margin: 2rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-footer { margin: 2rem; font-size: 12px; color: #888; }
-</style>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
+  <link rel="stylesheet" href="https://kamipatel.github.io/kamcc/style.css">
   <script src="https://cdn.evgnet.com/beacon/q55685555553rn13c3n3n3d081553031/dev2/scripts/evergage.min.js"></script>
 </head>
 <body>
   <header>
     <div id="mcp-cta-zone"><strong>Commerce Direct</strong></div>
   </header>
-  <nav class="breadcrumb"><a href="/kamcc/index.html">Home</a> &gt; <a href="/kamcc/products/index.html">Products</a> &gt; <span>Insulated Panels</span> &gt; Kooltherm K110</nav>
+
+  <nav class="breadcrumb">
+    <a href="/kamcc/index.html">Home</a> &gt;
+    <a href="/kamcc/products/index.html">Products</a> &gt;
+    <span>Insulated Panels</span> &gt; Kooltherm K110
+  </nav>
+
   <div class="container">
-    <h1>Kooltherm K110</h1><p>Floor insulation with ultra-low U-values.</p><h2>Key Features</h2><ul><li>Ground bearing slabs</li><li>High compressive strength</li><li>Moisture resistant</li></ul><p><a href='#'>Download Spec Sheet</a></p>
+    <h1>Kooltherm K110</h1>
+    <p>Floor insulation with ultra-low U-values.</p>
+    <h2>Key Features</h2>
+    <ul>
+      <li>Ground bearing slabs</li>
+      <li>High compressive strength</li>
+      <li>Moisture resistant</li>
+    </ul>
+    <p><a href='#'>Download Spec Sheet</a></p>
     <footer>&copy; 2025 Commerce Direct</footer>
   </div>
+
+  <!-- Enquiry Button -->
+  <button id="enquiry-btn" onclick="openEnquiryForm()">📩 Enquiry</button>
+
+  <!-- Enquiry Form Modal -->
+  <div class="form-popup" id="enquiryForm">
+    <button class="close-btn" onclick="closeEnquiryForm()">X</button>
+    <h3>Product Enquiry</h3>
+    <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" onsubmit="closeEnquiryForm()">
+      <input type="hidden" name="oid" value="00DgK000005DWP1" />
+      <input type="hidden" name="external_id__c" id="externalIdInput" />
+
+      <label>First Name</label>
+      <input type="text" name="first_name" value="Kam" readonly />
+
+      <label>Last Name</label>
+      <input type="text" name="last_name" value="Patel" readonly />
+
+      <label>Email</label>
+      <input type="email" name="email" value="kam@lumsi.io" readonly />
+
+      <label>Product</label>
+      <input type="text" name="00NXXXXX1" value="Kooltherm" readonly />
+
+      <label>Inquiry</label>
+      <textarea name="00NXXXXX2" rows="4" readonly>I need 100 of this, would like to talk to sales person.</textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- MCP Zone -->
   <div id="mcp-recommendation-zone"></div>
+
+  <script>
+    function getExternalIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("id") || "";
+    }
+
+    function openEnquiryForm() {
+      document.getElementById("externalIdInput").value = getExternalIdFromUrl();
+      document.getElementById("enquiryForm").style.display = "block";
+    }
+
+    function closeEnquiryForm() {
+      document.getElementById("enquiryForm").style.display = "none";
+    }
+  </script>
 </body>
 </html>
