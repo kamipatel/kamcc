@@ -39,8 +39,10 @@
     <button class="close-btn" onclick="closeEnquiryForm()">X</button>
     <h3>Product Enquiry</h3>
     <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" onsubmit="closeEnquiryForm()">
-      <input type="hidden" name="oid" value="00DgK000005DWP1" />
-      <input type="hidden" name="00NgK000016Cgyn" id="00NgK000016Cgyn" />
+
+    <input type=hidden name="oid" value="00DgK000006K62b">
+    <input type=hidden name="retURL" value="https://kamipatel.github.io/kamcc/products/insulated-panels/floor-insulation/kooltherm-k110/">
+      
 
       <label>First Name</label>
       <input type="text" name="first_name" value="Kam"  />
@@ -49,14 +51,14 @@
       <input type="text" name="last_name" value="Patel"  />
 
       <label>Email</label>
-      <input type="email" name="email" value="kam@lumsi.io"  />
+      <input type="email" name="email" value="kam@lumsi.io"  /><br>
 
-      <label>Product</label>
-      <input type="text" name="00NgK000016ChGX" value="Kooltherm"  />
-
-      <label>Inquiry</label>
-      <textarea name="00NgK000016ChMz" rows="4" readonly>I need 100 of this, would like to talk to sales person.</textarea>
-
+      Product:<input  id="00NgK000016ChGX" maxlength="100" name="00NgK000016ChGX" size="20" type="text" /><br>
+      
+      Enquiry:<input  id="00NgK000016ChMz" maxlength="255" name="00NgK000016ChMz" size="20" type="text" /><br>
+      
+      externalId:<input  id="00NgK000016Cgyn" maxlength="100" name="00NgK000016Cgyn" size="20" type="text" /><br>
+      
       <button type="submit">Submit</button>
     </form>
   </div>
