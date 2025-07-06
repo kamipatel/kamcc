@@ -62,33 +62,42 @@
     </form>
   </div>
 
+<script>
+  let formSubmitted = false; // 🔹 Track actual submission
 
-  <script>
-    function getExternalIdFromUrl() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("id") || "";
-    }
+  function getExternalIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id") || "";
+  }
 
-    function openEnquiryForm() {
-      document.getElementById("00NgK000016Cgyn").value = getExternalIdFromUrl();
-      document.getElementById("enquiryForm").style.display = "block";
-    }
+  function openEnquiryForm() {
+    document.getElementById("00NgK000016Cgyn").value = getExternalIdFromUrl();
+    document.getElementById("enquiryForm").style.display = "block";
+  }
 
-    function closeEnquiryForm() {
-       alert("✅ Thank you! Your enquiry has been submitted. Our team will contact you shortly.");     
-      document.getElementById("enquiryForm").style.display = "none";
-    }
+  function closeEnquiryForm() {
+    document.getElementById("enquiryForm").style.display = "none";
+  }
 
-  window.onFormSubmit = function () {
+  // 🔹 Attach to form submit event
+  window.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("leadForm");
-    if (document.getElementById("enquiryForm").style.display !== "none") {
+    form.addEventListener("submit", function () {
+      formSubmitted = true;
+    });
+  });
+
+  // ✅ Triggered only after actual form submission
+  window.onFormSubmit = function () {
+    if (formSubmitted) {
+      formSubmitted = false; // reset
       console.log("✅ Lead submitted!");
       alert("✅ Thank you! Your enquiry has been submitted. Our team will contact you shortly.");
       document.getElementById("enquiryForm").style.display = "none";
     }
   };
-    
-  </script>
+</script>
+
 
   <!-- Invisible iframe to prevent redirect -->
   <iframe name="hidden_iframe" style="display:none;" onload="onFormSubmit()"></iframe>
