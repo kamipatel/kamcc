@@ -40,7 +40,7 @@
     <h3>Product Enquiry</h3>
     <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" onsubmit="closeEnquiryForm()">
       <input type="hidden" name="oid" value="00DgK000005DWP1" />
-      <input type="hidden" name="external_id__c" id="externalIdInput" />
+      <input type="hidden" name="00NgK000016Cgyn" id="00NgK000016Cgyn" />
 
       <label>First Name</label>
       <input type="text" name="first_name" value="Kam" readonly />
@@ -71,7 +71,7 @@
   }
 
   function openEnquiryForm() {
-    document.getElementById("externalIdInput").value = getExternalIdFromUrl();
+    document.getElementById("00NgK000016Cgyn").value = getExternalIdFromUrl();
     document.getElementById("enquiryForm").style.display = "block";
   }
 
