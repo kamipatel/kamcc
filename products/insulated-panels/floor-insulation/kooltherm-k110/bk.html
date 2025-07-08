@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Kooltherm K110</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://kamipatel.github.io/kamcc/style.css">
+  <script src="https://cdn.evgnet.com/beacon/q55685555553rn13c3n3n3d081553031/dev2/scripts/evergage.min.js"></script>
+</head>
+<body>
+  <header>
+    <div style="Company Info">
+      <strong>Commerce Direct</strong></div>
+  </header>
+
+  
+  <nav class="breadcrumb">
+    <a href="/kamcc/index.html">Home</a> &gt;
+    <a href="/kamcc/products/index.html">Products</a> &gt;
+    <span>Insulated Panels</span> &gt; Kooltherm K110
+  </nav>
+
+  <div class="container">
+
+  <div id="topCtabar">
+   <p style="color: gray;">[MCP CTA Placeholder]</p>
+  </div>
+
+    
+    <h1>Kooltherm K110</h1>
+    <p>Floor insulation with ultra-low U-values.</p>
+    <h2>Key Features</h2>
+    <ul>
+      <li>Ground bearing slabs</li>
+      <li>High compressive strength</li>
+      <li>Moisture resistant</li>
+    </ul>
+    <p><a href='#'>Download Spec Sheet</a></p>
+<p><button onclick="openEnquiryForm()">📩 Enquiry</button>    </p>
+
+  <!-- MCP Zone -->
+
+<div id="mcp-recommendation-zone">
+  <p style="color: gray;">[MCP Zone Placeholder]</p>
+</div>
+    
+    
+    <footer>&copy; 2025 Commerce Direct</footer>
+  </div>
+
+
+  <div class="form-popup" id="enquiryForm" style="display:none;">
+    <form id="leadForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" target="hidden_iframe">
+      <input type="hidden" name="oid" value="00DgK000006K62b">
+      <input type="hidden" name="retURL" value="">
+
+      <label>First Name</label><input id="first_name" name="first_name" value="Kam"><br>
+      <label>Last Name</label><input id="last_name" name="last_name" value="Patel"><br>
+      <label>Email</label><input id="email" name="email" value="kam@lumsi.io"><br>
+      <label>Company</label><input id="company" name="company" value="Commerce Direct"><br>
+      <label>Country</label>
+      <select id="country_code" name="country_code">
+        <option value="US">United States</option>
+        <option value="IN">India</option>
+        <!-- add others as needed -->
+      </select><br>
+      <label>Zip</label><input id="zip" name="zip" value="60601"><br>
+      <label>Product</label><input id="00NgK000016ChGX" name="00NgK000016ChGX" value="Kooltherm"><br>
+      <label>Enquiry</label><input id="00NgK000016ChMz" name="00NgK000016ChMz" value="I need 100 of this, would like to talk to sales person."><br>
+      <input type="hidden" id="00NgK000016Cgyn" name="00NgK000016Cgyn">
+
+      <button type="submit">Submit</button>
+      <button type="button" onclick="closeEnquiryForm()">Close</button>
+    </form>
+  </div>
+
+<script>
+  let formSubmitted = false; // 🔹 Track actual submission
+
+  function getExternalIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id") || "";
+  }
+
+  function openEnquiryForm() {
+    document.getElementById("00NgK000016Cgyn").value = getExternalIdFromUrl();
+    document.getElementById("enquiryForm").style.display = "block";
+  }
+
+  function closeEnquiryForm() {
+    document.getElementById("enquiryForm").style.display = "none";
+  }
+
+  // 🔹 Attach to form submit event
+  window.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("leadForm");
+    form.addEventListener("submit", function () {
+      formSubmitted = true;
+    });
+  });
+
+  // ✅ Triggered only after actual form submission
+  window.onFormSubmit = function () {
+    if (formSubmitted) {
+      formSubmitted = false; // reset
+      console.log("✅ Lead submitted!");
+      alert("✅ Thank you! Your enquiry has been submitted. Our team will contact you shortly.");
+      document.getElementById("enquiryForm").style.display = "none";
+    }
+  };
+</script>
+
+
+  <!-- Invisible iframe to prevent redirect -->
+  <iframe name="hidden_iframe" style="display:none;" onload="onFormSubmit()"></iframe>
+  
+</body>
+</html>
