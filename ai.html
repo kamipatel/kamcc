@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>kamtestbot — demo site</title>
+  <meta name="description" content="A simple, self‑contained demo chatbot page. Not affiliated with or endorsed by any healthcare system." />
+  <!-- Prevent indexing by search engines for this demo site -->
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    :root {
+      --bg: #f7f7f8;
+      --surface: #ffffff;
+      --text: #1f2937; /* slate-800 */
+      --muted: #475569; /* slate-600 */
+      --border: #e5e7eb; /* gray-200 */
+      --accent: #8a1c1c; /* deep maroon */
+      --accent-strong: #b91c1c; /* red-700 */
+      --accent-soft: #fef2f2; /* red-50 */
+      --shadow: 0 10px 25px rgba(2,6,23,.06);
+      --warning-bg: #fff7d6;
+      --warning-fg: #7a5800;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Top disclaimer banner */
+    .banner { position: sticky; top: 0; z-index: 50; width: 100%;
+      background: var(--warning-bg); color: var(--warning-fg); border-bottom: 1px solid #fde68a;
+      font-weight: 600; text-align: center; padding: .6rem .75rem; }
+
+    /* Header & nav */
+    .site-header { background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 1rem; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: .9rem 0; }
+    .brand { display: grid; grid-auto-flow: column; gap: .7rem; align-items: center; text-decoration: none; color: inherit; }
+    .brand-badge { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #fff; }
+    .brand-title { font-weight: 800; letter-spacing: .2px; }
+    .nav-links { display: none; gap: 1rem; }
+    @media (min-width: 900px) { .nav-links { display: inline-flex; } }
+    .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; }
+    .nav-links a:hover { color: var(--accent-strong); }
+
+    /* Hero */
+    .hero { background: linear-gradient(180deg, var(--surface), #fafafa); border-bottom: 1px solid var(--border); }
+    .hero-wrap { display: grid; grid-template-columns: 1fr; gap: 1.4rem; align-items: center; padding: 2.4rem 0; }
+    @media (min-width: 980px) { .hero-wrap { grid-template-columns: 1.2fr .8fr; padding: 3.2rem 0; } }
+    .eyebrow { display: inline-block; font-size: .85rem; font-weight: 700; color: var(--accent-strong); background: var(--accent-soft); border: 1px solid #fecaca; border-radius: 999px; padding: .25rem .6rem; }
+    h1 { margin: .6rem 0 .4rem; font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif; font-size: clamp(1.8rem, 1.2rem + 2.4vw, 3rem); line-height: 1.15; }
+    .lead { color: var(--muted); font-size: 1.05rem; max-width: 60ch; }
+    .cta-row { display: flex; gap: .8rem; margin-top: 1.1rem; align-items: center; flex-wrap: wrap; }
+    .btn { appearance: none; border: 1px solid var(--accent); background: var(--accent); color: #fff; font-weight: 800; letter-spacing: .2px; padding: .75rem 1rem; border-radius: .75rem; cursor: pointer; text-decoration: none; }
+    .btn.secondary { background: transparent; color: var(--accent); }
+    .hero-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1rem; }
+    .hero-list { margin: .4rem 0 0; padding-left: 1rem; color: var(--muted); }
+
+    /* Content grid */
+    .section { padding: 2rem 0 2.4rem; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }
+    .card .inner { padding: 1rem 1.1rem; }
+    .card h2 { margin: 0 0 .25rem; font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif; font-size: 1.25rem; }
+    .card p { margin: 0; color: var(--muted); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); background: var(--surface); }
+    .footer-inner { padding: 1.4rem 0 2rem; color: var(--muted); font-size: .95rem; }
+    footer a { color: var(--accent-strong); text-underline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <div class="banner" role="note" aria-live="polite">
+    ⚠️ DEMO ONLY — This site is for demonstration purposes, not for real information or advice. No affiliation with any hospital or healthcare provider.
+  </div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="kamtestbot home">
+        <div class="brand-badge" aria-hidden="true">K</div>
+        <div>
+          <div class="brand-title">kamtestbot</div>
+          <div style="font-size:.85rem;color:var(--muted);font-weight:600">Demo site (not affiliated)</div>
+        </div>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#disclaimer">Disclaimer</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-wrap">
+      <div>
+        <span class="eyebrow">Demo experience</span>
+        <h1 id="hero-title">A clean, patient‑friendly look — for demo purposes only</h1>
+        <p class="lead">This page uses a modern, healthcare‑style layout while clearly stating it’s <strong>not</strong> an official source. A chat launcher may appear in the corner when loaded.</p>
+        <div class="cta-row">
+          <a class="btn" href="#disclaimer" onclick="document.querySelector('#disclaimer')?.scrollIntoView({behavior:'smooth'});return false;">Read disclaimer</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <strong>Highlights</strong>
+        <ul class="hero-list">
+          <li>Single self‑contained HTML file
+          <li>Responsive, accessible UI with serif headings
+          <li>Prominent non‑affiliation notice
+          <li>No tracking, no external assets (except chat script)
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Info blocks">
+    <div class="container">
+      <div class="grid">
+        <div class="card">
+          <div class="inner">
+            <h2>Overview</h2>
+            <p>This is a minimal demo homepage. It’s intentionally generic and avoids references to real organizations or services.</p>
+          </div>
+        </div>
+        <div class="card" id="disclaimer">
+          <div class="inner">
+            <h2>Disclaimer</h2>
+            <p><strong>Demo only.</strong> This site is not affiliated with any hospital, university, or company. Do not use it for medical, legal, or other advice.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="inner">
+            <h2>Customization</h2>
+            <p>You can replace headings, colors, and sections to suit your demo. The floating launcher (if present) is for chat demonstration only.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>kamtestbot</strong> — a small demonstration site. © <span id="year"></span>. Released under the MIT License. Built with plain HTML/CSS/JS.</p>
+    <p><em>Disclaimer:</em> This is a toy example for UI demonstration only. Do not rely on it for medical, legal, or any other advice.</p>
+  </footer>
+
+  <script>
+    // Keep only the dynamic year for footer
+    (function(){
+      var yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    })();
+  </script>
+  
+  <!-- Salesforce Embedded Messaging bootstrap (demo). Not affiliated with any provider. -->
+  <script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+
+			embeddedservice_bootstrap.init(
+				'00DOu00000BPY9b',
+				'kamdemo',
+				'https://uchicagomedicine--kampro3.sandbox.my.site.com/ESWkamdemo1762724688670',
+				{
+					scrt2URL: 'https://uchicagomedicine--kampro3.sandbox.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+  </script>
+  <script type='text/javascript' src='https://uchicagomedicine--kampro3.sandbox.my.site.com/ESWkamdemo1762724688670/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+</body>
+</html>
