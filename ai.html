@@ -91,62 +91,70 @@
           <div style="font-size:.85rem;color:var(--muted);font-weight:600">Demo site (not affiliated)</div>
         </div>
       </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#disclaimer">Disclaimer</a>
-      </nav>
+      
     </div>
   </header>
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="container hero-wrap">
       <div>
-        <span class="eyebrow">Demo experience</span>
-        <h1 id="hero-title">A clean, patient‑friendly look — for demo purposes only</h1>
-        <p class="lead">This page uses a modern, healthcare‑style layout while clearly stating it’s <strong>not</strong> an official source. A chat launcher may appear in the corner when loaded.</p>
-        <div class="cta-row">
-          <a class="btn" href="#disclaimer" onclick="document.querySelector('#disclaimer')?.scrollIntoView({behavior:'smooth'});return false;">Read disclaimer</a>
-        </div>
+        <span class="eyebrow">Demo</span>
+        <h1 id="hero-title">Search healthcare providers & locations</h1>
+        <p class="lead">Simple, clean layout for demonstrations. <strong>Not an official source.</strong></p>
       </div>
       <div class="hero-card">
-        <strong>Highlights</strong>
+        <strong>Try it</strong>
         <ul class="hero-list">
-          <li>Single self‑contained HTML file
-          <li>Responsive, accessible UI with serif headings
-          <li>Prominent non‑affiliation notice
-          <li>No tracking, no external assets (except chat script)
+          <li>Open the chat launcher (bottom corner) to simulate assistance
+          <li>Use the demo search below to mock provider/location lookups
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="section" aria-label="Info blocks">
+  <section class="section" id="search" aria-label="Demo search">
     <div class="container">
-      <div class="grid">
+      <div class="grid" style="grid-template-columns: 2fr 1fr; gap: 1rem;">
         <div class="card">
           <div class="inner">
-            <h2>Overview</h2>
-            <p>This is a minimal demo homepage. It’s intentionally generic and avoids references to real organizations or services.</p>
+            <h2 style="margin-bottom:.25rem">Find care (demo)</h2>
+            <p class="lead" style="font-size:1rem;margin:.25rem 0 1rem;color:var(--muted)">Search healthcare providers or locations. This does not query real data.</p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:.6rem;">
+              <input id="q" type="text" placeholder="Search providers, specialties…" style="padding:.75rem;border:1px solid var(--border);border-radius:.75rem;font:inherit;">
+              <input id="where" type="text" placeholder="City or ZIP" style="padding:.75rem;border:1px solid var(--border);border-radius:.75rem;font:inherit;">
+            </div>
+            <div style="display:flex; gap:.6rem; margin-top:.8rem; flex-wrap:wrap;">
+              <button class="btn" onclick="demoSearch('providers')">Find Providers</button>
+              <button class="btn secondary" onclick="demoSearch('locations')">Find Locations</button>
+            </div>
           </div>
         </div>
-        <div class="card" id="disclaimer">
+        <div class="card" id="results">
           <div class="inner">
-            <h2>Disclaimer</h2>
-            <p><strong>Demo only.</strong> This site is not affiliated with any hospital, university, or company. Do not use it for medical, legal, or other advice.</p>
+            <h2 style="margin-bottom:.25rem">Results</h2>
+            <p id="results-note" style="color:var(--muted)">Your demo results will appear here.</p>
+            <div id="results-list"></div>
           </div>
         </div>
-        <div class="card">
-          <div class="inner">
-            <h2>Customization</h2>
-            <p>You can replace headings, colors, and sections to suit your demo. The floating launcher (if present) is for chat demonstration only.</p>
-          </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="About">
+    <div class="container">
+      <div class="card">
+        <div class="inner">
+          <h2>About this demo</h2>
+          <p>This page is intentionally minimal with one disclaimer banner. It includes a faux search UI and a Salesforce Embedded Messaging launcher. No real services or data are provided.</p>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <p><strong>kamtestbot</strong> — a small demonstration site. © <span id="year"></span>. Released under the MIT License. Built with plain HTML/CSS/JS.</p>
-    <p><em>Disclaimer:</em> This is a toy example for UI demonstration only. Do not rely on it for medical, legal, or any other advice.</p>
+    <div class="container footer-inner">
+      <p><strong>kamtestbot</strong> — Demo page. © <span id="year"></span>. Not for real information.</p>
+    </div>
   </footer>
 
   <script>
@@ -155,6 +163,30 @@
       var yearEl = document.getElementById('year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
     })();
+    // tiny demo search to keep page self‑contained
+  function demoSearch(type){
+    var q = document.getElementById('q').value.trim() || '(any)';
+    var where = document.getElementById('where').value.trim() || '(anywhere)';
+    var list = document.getElementById('results-list');
+    var note = document.getElementById('results-note');
+    note.textContent = 'Showing mock ' + type + ' for ' + q + ' near ' + where + '.';
+    list.innerHTML = '';
+    var items = [
+      {title: 'Example '+(type==='providers'?'Provider':'Location')+' A', meta: 'Demo result • Not real'},
+      {title: 'Example '+(type==='providers'?'Provider':'Location')+' B', meta: 'Demo result • Not real'},
+      {title: 'Example '+(type==='providers'?'Provider':'Location')+' C', meta: 'Demo result • Not real'}
+    ];
+    items.forEach(function(it){
+      var card = document.createElement('div');
+      card.style.border = '1px solid var(--border)';
+      card.style.borderRadius = '12px';
+      card.style.padding = '.75rem .9rem';
+      card.style.marginTop = '.6rem';
+      card.style.background = 'var(--surface)';
+      card.innerHTML = '<div style="font-weight:700">'+it.title+'</div><div style="color:var(--muted);font-size:.95rem">'+it.meta+'</div>';
+      list.appendChild(card);
+    });
+  }
   </script>
   
   <!-- Salesforce Embedded Messaging bootstrap (demo). Not affiliated with any provider. -->
