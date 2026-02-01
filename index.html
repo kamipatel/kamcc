@@ -29,19 +29,12 @@
       <li><a href="#products">Products</a></li>
       <li><a href="#features">Why Us</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#" class="nav-cta" onclick="openChatbot(); return false;">Get Quote</a></li>
+      <li><a href="#" class="nav-cta">Get Quote</a></li>
     </ul>
   </nav>
 
-  <!-- Products Section - Now First -->
-  <section class="products" id="products" style="padding-top: 120px;">
-    <div class="products-header">
-      <h2 class="section-title">Our <span>Products</span></h2>
-      <p class="section-subtitle">
-        Comprehensive roofing solutions designed for commercial and industrial applications
-      </p>
-    </div>
-
+  <!-- Products Section -->
+  <section class="products" id="products" style="padding-top: 100px;">
     <div class="product-categories">
       <button class="category-btn active" data-category="all">All Products</button>
       <button class="category-btn" data-category="insulation">Insulation</button>
@@ -74,7 +67,7 @@
           </div>
           <div class="product-footer">
             <span class="product-code">AD-500</span>
-            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+            <a href="#" class="product-link">
               Request Quote
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -108,7 +101,7 @@
           </div>
           <div class="product-footer">
             <span class="product-code">FK-200</span>
-            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+            <a href="#" class="product-link">
               Request Quote
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -142,7 +135,7 @@
           </div>
           <div class="product-footer">
             <span class="product-code">FL-300</span>
-            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+            <a href="#" class="product-link">
               Request Quote
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -176,7 +169,7 @@
           </div>
           <div class="product-footer">
             <span class="product-code">ISO-HD-R30</span>
-            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+            <a href="#" class="product-link">
               Request Quote
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -210,7 +203,7 @@
           </div>
           <div class="product-footer">
             <span class="product-code">METAL-MP300</span>
-            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+            <a href="#" class="product-link">
               Request Quote
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -244,7 +237,7 @@
           </div>
           <div class="product-footer">
             <span class="product-code">TPO-80-WHITE</span>
-            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+            <a href="#" class="product-link">
               Request Quote
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -378,7 +371,7 @@
     <div class="cta-content">
       <h2>Ready to Start Your Project?</h2>
       <p>Connect with our roofing specialists for personalized recommendations and competitive pricing.</p>
-      <button class="btn btn-primary" onclick="openChatbot()">
+      <button class="btn btn-primary">
         Chat With Us Now
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -457,53 +450,8 @@
     </div>
   </footer>
 
-  <!-- Chatbot Trigger Button -->
-  <button class="chatbot-trigger" onclick="openChatbot()" aria-label="Open chat">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>
-  </button>
-
-  <!-- Chatbot Modal -->
-  <div class="chatbot-modal" id="chatbotModal">
-    <div class="chatbot-header">
-      <div class="chatbot-header-info">
-        <div class="chatbot-avatar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-        </div>
-        <div>
-          <div class="chatbot-name">MoonRoof Assistant</div>
-          <div class="chatbot-status">Online • Ready to help</div>
-        </div>
-      </div>
-      <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chat">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-    <iframe 
-      class="chatbot-iframe" 
-      src="https://kamipatel.github.io/kamcc/b2b.html"
-      title="MoonRoof Chatbot">
-    </iframe>
-  </div>
-
+  <!-- Page Scripts -->
   <script>
-    // Chatbot functions
-    function openChatbot() {
-      document.getElementById('chatbotModal').classList.add('active');
-      document.querySelector('.chatbot-trigger').style.display = 'none';
-    }
-
-    function closeChatbot() {
-      document.getElementById('chatbotModal').classList.remove('active');
-      document.querySelector('.chatbot-trigger').style.display = 'flex';
-    }
-
     // Product category filtering
     const categoryBtns = document.querySelectorAll('.category-btn');
     const productCards = document.querySelectorAll('.product-card');
@@ -578,6 +526,26 @@
       }
     });
   </script>
+
+  <!-- Salesforce Embedded Messaging Chatbot -->
+  <script type='text/javascript'>
+    function initEmbeddedMessaging() {
+      try {
+        embeddedservice_bootstrap.settings.language = 'en_US';
+        embeddedservice_bootstrap.init(
+          '00Dg50000049jnt',
+          'MoonshotSalesAgent',
+          'https://orgfarm-1e55ba86cc-dev-ed.develop.my.site.com/ESWMoonshotSalesAgent1769897408551',
+          {
+            scrt2URL: 'https://orgfarm-1e55ba86cc-dev-ed.develop.my.salesforce-scrt.com'
+          }
+        );
+      } catch (err) {
+        console.error('Error loading Embedded Messaging: ', err);
+      }
+    };
+  </script>
+  <script type='text/javascript' src='https://orgfarm-1e55ba86cc-dev-ed.develop.my.site.com/ESWMoonshotSalesAgent1769897408551/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
 </body>
 </html>
