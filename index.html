@@ -1,31 +1,615 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home</title>
-  <style>
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; color: #333; }
-a { color: #0077cc; text-decoration: none; }
-header { background-color: #003366; color: white; padding: 1rem 2rem; }
-nav.breadcrumb { font-size: 14px; margin: 1rem 2rem; }
-nav.breadcrumb a { margin-right: 5px; }
-h1 { color: #003366; margin: 0 0 1rem 0; }
-ul { line-height: 1.6; }
-.container { background: white; padding: 2rem; margin: 2rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-footer { margin: 2rem; font-size: 12px; color: #888; }
-</style>
-<script src="https://cdn.c360a.salesforce.com/beacon/c360a/656615d0-076a-4e92-a48f-e388c09fba9b/scripts/c360a.min.js">  
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoonRoof | Premium Commercial Roofing Solutions</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <header>
-    <div id="mcp-cta-zone"><strong>Commerce Direct</strong></div>
-  </header>
-  <nav class="breadcrumb">Home</nav>
-  <div class="container">
-    <h1>Welcome to Energy Insulation Products</h1><p><a href="/kamcc/products/index.html">Browse Products</a></p>
-    <footer>&copy; 2025 Commerce Direct</footer>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f97316"/>
+            <stop offset="100%" style="stop-color:#fb923c"/>
+          </linearGradient>
+        </defs>
+        <path d="M24 4L44 18V44H4V18L24 4Z" stroke="url(#logoGrad)" stroke-width="2.5" fill="none"/>
+        <path d="M24 4L44 18M24 4L4 18" stroke="url(#logoGrad)" stroke-width="3"/>
+        <circle cx="24" cy="28" r="8" fill="url(#logoGrad)"/>
+        <path d="M24 20C28.4183 20 32 23.5817 32 28" stroke="#fb923c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Moon<span>Roof</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#features">Why Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" class="nav-cta" onclick="openChatbot(); return false;">Get Quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-shapes">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+      <div class="hero-shape hero-shape-3"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        <span>Trusted by 500+ contractors nationwide</span>
+      </div>
+      <h1>Build Better.<br/><span class="gradient-text">Roof Smarter.</span></h1>
+      <p class="hero-description">
+        Premium commercial roofing products engineered for durability, efficiency, and performance. From insulation to membranes, we've got you covered.
+      </p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn btn-primary">
+          Explore Products
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <button class="btn btn-secondary" onclick="openChatbot()">
+          Talk to Expert
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat-item animate-on-scroll">
+        <div class="stat-number">40+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item animate-on-scroll">
+        <div class="stat-number">2.5B</div>
+        <div class="stat-label">Sq Ft Installed</div>
+      </div>
+      <div class="stat-item animate-on-scroll">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Certified Partners</div>
+      </div>
+      <div class="stat-item animate-on-scroll">
+        <div class="stat-number">99.2%</div>
+        <div class="stat-label">Customer Satisfaction</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products" id="products">
+    <div class="products-header">
+      <h2 class="section-title">Our <span>Products</span></h2>
+      <p class="section-subtitle">
+        Comprehensive roofing solutions designed for commercial and industrial applications
+      </p>
+    </div>
+
+    <div class="product-categories">
+      <button class="category-btn active" data-category="all">All Products</button>
+      <button class="category-btn" data-category="insulation">Insulation</button>
+      <button class="category-btn" data-category="membrane">Membranes</button>
+      <button class="category-btn" data-category="accessories">Accessories</button>
+    </div>
+
+    <div class="products-grid">
+      <!-- Product 1: Adhesive -->
+      <div class="product-card animate-on-scroll" data-category="accessories">
+        <div class="product-image">
+          <img src="images/product-adhesive.svg" alt="MoonRoof Adhesive AD-500">
+          <span class="product-badge">In Stock</span>
+        </div>
+        <div class="product-content">
+          <span class="product-category">Accessories</span>
+          <h3 class="product-name">MoonRoof Adhesive AD-500</h3>
+          <p class="product-description">
+            High-performance bonding adhesive for membrane roofing systems. VOC compliant with superior wet/dry bond strength.
+          </p>
+          <div class="product-specs">
+            <div class="spec">
+              <span class="spec-label">Coverage</span>
+              <span class="spec-value">60 sq ft/gal</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Cure Time</span>
+              <span class="spec-value">24 hrs</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span class="product-code">AD-500</span>
+            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+              Request Quote
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2: Fastener Kit -->
+      <div class="product-card animate-on-scroll" data-category="accessories">
+        <div class="product-image">
+          <img src="images/product-fastener.svg" alt="MoonRoof Fastener Kit FK-200">
+          <span class="product-badge">In Stock</span>
+        </div>
+        <div class="product-content">
+          <span class="product-category">Accessories</span>
+          <h3 class="product-name">MoonRoof Fastener Kit FK-200</h3>
+          <p class="product-description">
+            Complete mechanical attachment system with corrosion-resistant fasteners and stress plates for maximum wind uplift resistance.
+          </p>
+          <div class="product-specs">
+            <div class="spec">
+              <span class="spec-label">Material</span>
+              <span class="spec-value">Galvanized</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Count</span>
+              <span class="spec-value">500/box</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span class="product-code">FK-200</span>
+            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+              Request Quote
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3: Flashing Kit -->
+      <div class="product-card animate-on-scroll" data-category="accessories">
+        <div class="product-image">
+          <img src="images/product-flashing.svg" alt="MoonRoof Flashing Kit FL-300">
+          <span class="product-badge">In Stock</span>
+        </div>
+        <div class="product-content">
+          <span class="product-category">Accessories</span>
+          <h3 class="product-name">MoonRoof Flashing Kit FL-300</h3>
+          <p class="product-description">
+            Pre-formed metal flashing components for penetrations, edges, and transitions. Ensures watertight seals at critical junctions.
+          </p>
+          <div class="product-specs">
+            <div class="spec">
+              <span class="spec-label">Material</span>
+              <span class="spec-value">Aluminum</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Gauge</span>
+              <span class="spec-value">24 GA</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span class="product-code">FL-300</span>
+            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+              Request Quote
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4: ISO Panel -->
+      <div class="product-card animate-on-scroll" data-category="insulation">
+        <div class="product-image">
+          <img src="images/product-iso-panel.svg" alt="MoonRoof ISO-HD R-30">
+          <span class="product-badge bestseller">Best Seller</span>
+        </div>
+        <div class="product-content">
+          <span class="product-category">Insulation</span>
+          <h3 class="product-name">MoonRoof ISO-HD R-30</h3>
+          <p class="product-description">
+            High-density polyiso insulation board with superior thermal performance. Glass fiber reinforced facers for enhanced durability.
+          </p>
+          <div class="product-specs">
+            <div class="spec">
+              <span class="spec-label">R-Value</span>
+              <span class="spec-value">R-30</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Thickness</span>
+              <span class="spec-value">5.0"</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span class="product-code">ISO-HD-R30</span>
+            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+              Request Quote
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 5: Metal Panel -->
+      <div class="product-card animate-on-scroll" data-category="membrane">
+        <div class="product-image">
+          <img src="images/product-metal-panel.svg" alt="MoonRoof Metal Panel MP-300">
+          <span class="product-badge">In Stock</span>
+        </div>
+        <div class="product-content">
+          <span class="product-category">Metal Roofing</span>
+          <h3 class="product-name">MoonRoof Metal Panel MP-300</h3>
+          <p class="product-description">
+            Standing seam metal roofing panel with Galvalume coating. 40-year warranty with exceptional weather resistance.
+          </p>
+          <div class="product-specs">
+            <div class="spec">
+              <span class="spec-label">Material</span>
+              <span class="spec-value">Galvalume</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Gauge</span>
+              <span class="spec-value">26 GA</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span class="product-code">METAL-MP300</span>
+            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+              Request Quote
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 6: TPO Membrane -->
+      <div class="product-card animate-on-scroll" data-category="membrane">
+        <div class="product-image">
+          <img src="images/product-tpo.svg" alt="MoonRoof TPO-80 White">
+          <span class="product-badge energy">Energy Star</span>
+        </div>
+        <div class="product-content">
+          <span class="product-category">Membranes</span>
+          <h3 class="product-name">MoonRoof TPO-80 White</h3>
+          <p class="product-description">
+            Premium thermoplastic polyolefin membrane with high solar reflectance. Cool roof rated for maximum energy efficiency.
+          </p>
+          <div class="product-specs">
+            <div class="spec">
+              <span class="spec-label">Thickness</span>
+              <span class="spec-value">80 mil</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Width</span>
+              <span class="spec-value">10 ft</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span class="product-code">TPO-80-WHITE</span>
+            <a href="#" class="product-link" onclick="openChatbot(); return false;">
+              Request Quote
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="products-header">
+      <h2 class="section-title">Why <span>MoonRoof</span></h2>
+      <p class="section-subtitle">
+        Trusted by contractors and building owners across the nation
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Industry-Leading Warranty</h3>
+        <p class="feature-description">
+          Up to 30-year system warranties backed by our dedicated support team. We stand behind every product.
+        </p>
+      </div>
+
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13"/>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Fast Nationwide Delivery</h3>
+        <p class="feature-description">
+          Strategic distribution centers ensure 2-3 day delivery across the continental US. Emergency orders available.
+        </p>
+      </div>
+
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Expert Technical Support</h3>
+        <p class="feature-description">
+          Access to certified roofing consultants for specification assistance, installation guidance, and troubleshooting.
+        </p>
+      </div>
+
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Code Compliant</h3>
+        <p class="feature-description">
+          All products meet or exceed building codes and carry FM, UL, and Energy Star certifications.
+        </p>
+      </div>
+
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Complete Systems</h3>
+        <p class="feature-description">
+          Integrated roofing assemblies with matched components ensure optimal performance and simplified warranties.
+        </p>
+      </div>
+
+      <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Sustainability Focus</h3>
+        <p class="feature-description">
+          Cool roof options, recycled content materials, and LEED-contributing products for green building projects.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta" id="contact">
+    <div class="cta-content">
+      <h2>Ready to Start Your Project?</h2>
+      <p>Connect with our roofing specialists for personalized recommendations and competitive pricing.</p>
+      <button class="btn btn-primary" onclick="openChatbot()">
+        Chat With Us Now
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <svg class="logo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 4L44 18V44H4V18L24 4Z" stroke="#f97316" stroke-width="2" fill="none"/>
+            <path d="M24 4L44 18M24 4L4 18" stroke="#f97316" stroke-width="3"/>
+            <circle cx="24" cy="28" r="8" fill="#f97316"/>
+          </svg>
+          <span class="logo-text">Moon<span>Roof</span></span>
+        </a>
+        <p class="footer-description">
+          Premium commercial roofing solutions since 1985. Building better roofs for a sustainable future.
+        </p>
+      </div>
+      
+      <div>
+        <h4 class="footer-title">Products</h4>
+        <ul class="footer-links">
+          <li><a href="#">ISO Insulation</a></li>
+          <li><a href="#">TPO Membranes</a></li>
+          <li><a href="#">Metal Panels</a></li>
+          <li><a href="#">Accessories</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="footer-title">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="#">Technical Data</a></li>
+          <li><a href="#">Installation Guides</a></li>
+          <li><a href="#">Warranty Info</a></li>
+          <li><a href="#">CAD Details</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="footer-title">Company</h4>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">© 2026 MoonRoof Industries. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Twitter">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chatbot Trigger Button -->
+  <button class="chatbot-trigger" onclick="openChatbot()" aria-label="Open chat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  </button>
+
+  <!-- Chatbot Modal -->
+  <div class="chatbot-modal" id="chatbotModal">
+    <div class="chatbot-header">
+      <div class="chatbot-header-info">
+        <div class="chatbot-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="chatbot-name">MoonRoof Assistant</div>
+          <div class="chatbot-status">Online • Ready to help</div>
+        </div>
+      </div>
+      <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <iframe 
+      class="chatbot-iframe" 
+      src="https://kamipatel.github.io/kamcc/b2b.html"
+      title="MoonRoof Chatbot">
+    </iframe>
   </div>
-  <div id="mcp-recommendation-zone"></div>
+
+  <script>
+    // Chatbot functions
+    function openChatbot() {
+      document.getElementById('chatbotModal').classList.add('active');
+      document.querySelector('.chatbot-trigger').style.display = 'none';
+    }
+
+    function closeChatbot() {
+      document.getElementById('chatbotModal').classList.remove('active');
+      document.querySelector('.chatbot-trigger').style.display = 'flex';
+    }
+
+    // Product category filtering
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const category = btn.dataset.category;
+        
+        productCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 10);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => card.style.display = 'none', 300);
+          }
+        });
+      });
+    });
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 100);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll with offset for fixed navbar
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+        if (target) {
+          const navbarHeight = document.querySelector('.navbar').offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
 </body>
 </html>

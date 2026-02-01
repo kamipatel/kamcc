@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bgLight4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fefce8"/>
+      <stop offset="50%" style="stop-color:#fff7ed"/>
+      <stop offset="100%" style="stop-color:#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="foamCore" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fde047"/>
+      <stop offset="50%" style="stop-color:#facc15"/>
+      <stop offset="100%" style="stop-color:#eab308"/>
+    </linearGradient>
+    <linearGradient id="facerTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f1f5f9"/>
+      <stop offset="50%" style="stop-color:#e2e8f0"/>
+      <stop offset="100%" style="stop-color:#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="facerSide" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#cbd5e1"/>
+      <stop offset="100%" style="stop-color:#94a3b8"/>
+    </linearGradient>
+    <linearGradient id="purpleAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <filter id="softShadow4" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="15" stdDeviation="18" flood-color="#1e293b" flood-opacity="0.15"/>
+    </filter>
+    <pattern id="foamTexture" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="2" fill="#fef08a" opacity="0.6"/>
+      <circle cx="15" cy="15" r="1.5" fill="#fef08a" opacity="0.4"/>
+      <circle cx="10" cy="2" r="1" fill="#fef08a" opacity="0.5"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bgLight4)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="380" cy="30" r="60" fill="#a855f7" opacity="0.06"/>
+  <circle cx="30" cy="270" r="80" fill="#f97316" opacity="0.05"/>
+  
+  <!-- ISO Panel 3D -->
+  <g filter="url(#softShadow4)" transform="translate(60, 50)">
+    <!-- Bottom facer -->
+    <path d="M 0 170 L 220 170 L 280 200 L 60 200 Z" fill="url(#facerTop)"/>
+    <path d="M 220 170 L 280 200 L 280 208 L 220 178 Z" fill="url(#facerSide)"/>
+    <rect x="0" y="170" width="220" height="8" fill="#94a3b8"/>
+    
+    <!-- Foam core -->
+    <rect x="0" y="40" width="220" height="130" fill="url(#foamCore)"/>
+    <rect x="0" y="40" width="220" height="130" fill="url(#foamTexture)"/>
+    
+    <!-- Foam side -->
+    <path d="M 220 40 L 280 70 L 280 200 L 220 170 Z" fill="#ca8a04"/>
+    
+    <!-- Top facer -->
+    <rect x="0" y="32" width="220" height="8" fill="url(#facerTop)"/>
+    <path d="M 0 32 L 220 32 L 280 62 L 60 62 Z" fill="url(#facerTop)"/>
+    <path d="M 220 32 L 280 62 L 280 70 L 220 40 Z" fill="url(#facerSide)"/>
+    
+    <!-- Highlight on top -->
+    <path d="M 10 37 L 200 37 L 250 62 L 60 62 Z" fill="white" opacity="0.4"/>
+    
+    <!-- Cross-section indicator lines -->
+    <line x1="5" y1="45" x2="215" y2="45" stroke="white" stroke-width="1" opacity="0.3"/>
+    <line x1="5" y1="165" x2="215" y2="165" stroke="white" stroke-width="1" opacity="0.3"/>
+  </g>
+  
+  <!-- R-Value indicator -->
+  <g transform="translate(310, 70)">
+    <circle cx="40" cy="40" r="40" fill="white" filter="url(#softShadow4)"/>
+    <circle cx="40" cy="40" r="35" fill="none" stroke="url(#purpleAccent)" stroke-width="4"/>
+    <text x="40" y="35" font-family="Arial Black, sans-serif" font-size="18" fill="#7c3aed" text-anchor="middle">R-30</text>
+    <text x="40" y="52" font-family="Arial, sans-serif" font-size="8" fill="#9ca3af" text-anchor="middle">THERMAL</text>
+  </g>
+  
+  <!-- Thickness indicator -->
+  <g transform="translate(30, 100)">
+    <line x1="15" y1="0" x2="15" y2="100" stroke="url(#purpleAccent)" stroke-width="3"/>
+    <line x1="5" y1="0" x2="25" y2="0" stroke="url(#purpleAccent)" stroke-width="3"/>
+    <line x1="5" y1="100" x2="25" y2="100" stroke="url(#purpleAccent)" stroke-width="3"/>
+    <rect x="-5" y="40" width="40" height="24" fill="white" rx="12" filter="url(#softShadow4)"/>
+    <text x="15" y="56" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#7c3aed" text-anchor="middle">5.0"</text>
+  </g>
+  
+  <!-- Spec badge -->
+  <g transform="translate(280, 180)">
+    <rect width="100" height="55" fill="white" rx="10" filter="url(#softShadow4)"/>
+    <text x="50" y="22" font-family="Arial, sans-serif" font-size="8" fill="#9ca3af" text-anchor="middle">DENSITY</text>
+    <text x="50" y="42" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">High (2.5 lb)</text>
+  </g>
+  
+  <!-- Product label -->
+  <g transform="translate(20, 230)">
+    <rect width="140" height="50" fill="url(#purpleAccent)" rx="25" filter="url(#softShadow4)"/>
+    <text x="70" y="25" font-family="Arial, sans-serif" font-size="9" fill="white" opacity="0.9" text-anchor="middle">ISO INSULATION</text>
+    <text x="70" y="40" font-family="monospace" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ISO-HD-R30</text>
+  </g>
+  
+  <!-- Energy badge -->
+  <g transform="translate(320, 250)">
+    <rect width="60" height="30" fill="#22c55e" rx="15" filter="url(#softShadow4)"/>
+    <text x="30" y="20" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white" text-anchor="middle">ENERGY★</text>
+  </g>
+</svg>

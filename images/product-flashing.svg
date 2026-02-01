@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bgLight3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef3c7"/>
+      <stop offset="50%" style="stop-color:#fff7ed"/>
+      <stop offset="100%" style="stop-color:#fce7f3"/>
+    </linearGradient>
+    <linearGradient id="aluminumGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f1f5f9"/>
+      <stop offset="20%" style="stop-color:#e2e8f0"/>
+      <stop offset="50%" style="stop-color:#cbd5e1"/>
+      <stop offset="80%" style="stop-color:#e2e8f0"/>
+      <stop offset="100%" style="stop-color:#94a3b8"/>
+    </linearGradient>
+    <linearGradient id="aluminumSide" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#94a3b8"/>
+      <stop offset="100%" style="stop-color:#64748b"/>
+    </linearGradient>
+    <linearGradient id="orangeAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fb923c"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
+    </linearGradient>
+    <filter id="softShadow3" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#1e293b" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bgLight3)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="50" cy="50" r="80" fill="#f97316" opacity="0.06"/>
+  <circle cx="380" cy="280" r="90" fill="#14b8a6" opacity="0.05"/>
+  
+  <!-- Main L-shaped flashing piece -->
+  <g filter="url(#softShadow3)" transform="translate(50, 60)">
+    <!-- Top surface -->
+    <path d="M 0 0 L 200 0 L 250 25 L 50 25 Z" fill="url(#aluminumGrad)"/>
+    
+    <!-- Front face -->
+    <path d="M 0 0 L 0 100 L 200 100 L 200 0 Z" fill="url(#aluminumGrad)"/>
+    <path d="M 0 0 L 0 100 L 200 100 L 200 0 Z" fill="white" opacity="0.3"/>
+    
+    <!-- Right side -->
+    <path d="M 200 0 L 250 25 L 250 125 L 200 100 Z" fill="url(#aluminumSide)"/>
+    
+    <!-- Vertical part of L -->
+    <path d="M 0 100 L 0 180 L 30 180 L 30 100 Z" fill="url(#aluminumGrad)"/>
+    <path d="M 30 100 L 30 180 L 80 205 L 80 125 Z" fill="url(#aluminumSide)"/>
+    <path d="M 0 180 L 30 180 L 80 205 L 50 205 Z" fill="#64748b"/>
+    
+    <!-- Highlight lines -->
+    <line x1="10" y1="5" x2="190" y2="5" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="5" y1="10" x2="5" y2="95" stroke="white" stroke-width="1" opacity="0.4"/>
+  </g>
+  
+  <!-- Second flashing piece (corner) -->
+  <g filter="url(#softShadow3)" transform="translate(260, 130)">
+    <path d="M 0 0 L 80 0 L 100 15 L 20 15 Z" fill="url(#aluminumGrad)"/>
+    <path d="M 0 0 L 0 60 L 80 60 L 80 0 Z" fill="url(#aluminumGrad)"/>
+    <path d="M 0 0 L 0 60 L 80 60 L 80 0 Z" fill="white" opacity="0.2"/>
+    <path d="M 80 0 L 100 15 L 100 75 L 80 60 Z" fill="url(#aluminumSide)"/>
+    
+    <!-- Bend indicator -->
+    <path d="M 80 0 L 80 60 L 100 75 L 100 60 Q 85 50, 85 0 Z" fill="#94a3b8" opacity="0.5"/>
+  </g>
+  
+  <!-- Drip edge piece -->
+  <g filter="url(#softShadow3)" transform="translate(100, 220)">
+    <rect x="0" y="0" width="180" height="12" fill="url(#aluminumGrad)" rx="1"/>
+    <path d="M 180 0 L 200 8 L 200 20 L 180 12 Z" fill="url(#aluminumSide)"/>
+    <rect x="0" y="12" width="180" height="25" fill="url(#aluminumSide)" rx="1"/>
+    <path d="M 0 12 L 0 37 L 5 40 L 5 15 Z" fill="#64748b"/>
+    
+    <!-- Drip lip -->
+    <path d="M 0 37 L 180 37 L 180 45 L -5 45 Z" fill="#94a3b8"/>
+  </g>
+  
+  <!-- Measurement indicator -->
+  <g transform="translate(100, 260)">
+    <line x1="0" y1="10" x2="180" y2="10" stroke="url(#orangeAccent)" stroke-width="2"/>
+    <line x1="0" y1="5" x2="0" y2="15" stroke="url(#orangeAccent)" stroke-width="2"/>
+    <line x1="180" y1="5" x2="180" y2="15" stroke="url(#orangeAccent)" stroke-width="2"/>
+    <rect x="65" y="0" width="50" height="20" fill="white" rx="10"/>
+    <text x="90" y="14" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#f97316" text-anchor="middle">10 ft</text>
+  </g>
+  
+  <!-- Spec badges -->
+  <g transform="translate(20, 20)">
+    <rect width="85" height="55" fill="white" rx="10" filter="url(#softShadow3)"/>
+    <text x="42" y="22" font-family="Arial, sans-serif" font-size="8" fill="#9ca3af" text-anchor="middle">MATERIAL</text>
+    <text x="42" y="40" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">Aluminum</text>
+  </g>
+  
+  <g transform="translate(300, 40)">
+    <rect width="80" height="55" fill="white" rx="10" filter="url(#softShadow3)"/>
+    <text x="40" y="22" font-family="Arial, sans-serif" font-size="8" fill="#9ca3af" text-anchor="middle">GAUGE</text>
+    <text x="40" y="40" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">24 GA</text>
+  </g>
+  
+  <!-- Product code -->
+  <g transform="translate(300, 230)">
+    <rect width="70" height="30" fill="url(#orangeAccent)" rx="15" filter="url(#softShadow3)"/>
+    <text x="35" y="20" font-family="monospace" font-size="11" font-weight="bold" fill="white" text-anchor="middle">FL-300</text>
+  </g>
+</svg>

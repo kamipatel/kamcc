@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bgLight2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ecfeff"/>
+      <stop offset="50%" style="stop-color:#f0fdf4"/>
+      <stop offset="100%" style="stop-color:#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="metalShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e2e8f0"/>
+      <stop offset="25%" style="stop-color:#f8fafc"/>
+      <stop offset="50%" style="stop-color:#e2e8f0"/>
+      <stop offset="75%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="screwThread" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#94a3b8"/>
+      <stop offset="50%" style="stop-color:#64748b"/>
+      <stop offset="100%" style="stop-color:#94a3b8"/>
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9"/>
+      <stop offset="100%" style="stop-color:#0284c7"/>
+    </linearGradient>
+    <filter id="softShadow2" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1e293b" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bgLight2)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="380" cy="50" r="60" fill="#0ea5e9" opacity="0.06"/>
+  <circle cx="30" cy="270" r="70" fill="#14b8a6" opacity="0.05"/>
+  
+  <!-- Box container -->
+  <g filter="url(#softShadow2)" transform="translate(40, 100)">
+    <!-- Box base -->
+    <path d="M 0 80 L 0 150 L 140 150 L 180 130 L 180 60 L 40 60 Z" fill="url(#boxGrad)"/>
+    <!-- Box side -->
+    <path d="M 140 150 L 180 130 L 180 60 L 140 80 Z" fill="#0369a1"/>
+    <!-- Box top -->
+    <path d="M 0 80 L 40 60 L 180 60 L 140 80 Z" fill="#38bdf8"/>
+    
+    <!-- Box label -->
+    <rect x="15" y="95" width="110" height="45" fill="white" opacity="0.95" rx="3"/>
+    <text x="70" y="115" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#0ea5e9" text-anchor="middle">MOONROOF</text>
+    <text x="70" y="132" font-family="Arial Black, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">FASTENER KIT</text>
+  </g>
+  
+  <!-- Floating screws -->
+  <g filter="url(#softShadow2)">
+    <!-- Screw 1 -->
+    <g transform="translate(220, 40) rotate(15)">
+      <ellipse cx="12" cy="0" rx="18" ry="6" fill="url(#metalShine)"/>
+      <rect x="6" y="0" width="12" height="100" fill="url(#screwThread)"/>
+      <polygon points="12,100 4,100 12,130 20,100" fill="#64748b"/>
+      <!-- Thread lines -->
+      <g stroke="#475569" stroke-width="1" opacity="0.5">
+        <line x1="6" y1="15" x2="18" y2="15"/>
+        <line x1="6" y1="25" x2="18" y2="25"/>
+        <line x1="6" y1="35" x2="18" y2="35"/>
+        <line x1="6" y1="45" x2="18" y2="45"/>
+        <line x1="6" y1="55" x2="18" y2="55"/>
+        <line x1="6" y1="65" x2="18" y2="65"/>
+        <line x1="6" y1="75" x2="18" y2="75"/>
+        <line x1="6" y1="85" x2="18" y2="85"/>
+      </g>
+      <!-- Phillips head -->
+      <line x1="6" y1="0" x2="18" y2="0" stroke="#475569" stroke-width="2"/>
+      <line x1="12" y1="-6" x2="12" y2="6" stroke="#475569" stroke-width="2"/>
+    </g>
+    
+    <!-- Screw 2 -->
+    <g transform="translate(280, 70) rotate(-10)">
+      <ellipse cx="10" cy="0" rx="15" ry="5" fill="url(#metalShine)"/>
+      <rect x="5" y="0" width="10" height="80" fill="url(#screwThread)"/>
+      <polygon points="10,80 3,80 10,105 17,80" fill="#64748b"/>
+      <g stroke="#475569" stroke-width="1" opacity="0.5">
+        <line x1="5" y1="12" x2="15" y2="12"/>
+        <line x1="5" y1="22" x2="15" y2="22"/>
+        <line x1="5" y1="32" x2="15" y2="32"/>
+        <line x1="5" y1="42" x2="15" y2="42"/>
+        <line x1="5" y1="52" x2="15" y2="52"/>
+        <line x1="5" y1="62" x2="15" y2="62"/>
+      </g>
+      <line x1="5" y1="0" x2="15" y2="0" stroke="#475569" stroke-width="2"/>
+      <line x1="10" y1="-5" x2="10" y2="5" stroke="#475569" stroke-width="2"/>
+    </g>
+    
+    <!-- Screw 3 -->
+    <g transform="translate(340, 120) rotate(5)">
+      <ellipse cx="10" cy="0" rx="15" ry="5" fill="url(#metalShine)"/>
+      <rect x="5" y="0" width="10" height="70" fill="url(#screwThread)"/>
+      <polygon points="10,70 3,70 10,92 17,70" fill="#64748b"/>
+      <g stroke="#475569" stroke-width="1" opacity="0.5">
+        <line x1="5" y1="10" x2="15" y2="10"/>
+        <line x1="5" y1="20" x2="15" y2="20"/>
+        <line x1="5" y1="30" x2="15" y2="30"/>
+        <line x1="5" y1="40" x2="15" y2="40"/>
+        <line x1="5" y1="50" x2="15" y2="50"/>
+      </g>
+      <line x1="5" y1="0" x2="15" y2="0" stroke="#475569" stroke-width="2"/>
+      <line x1="10" y1="-5" x2="10" y2="5" stroke="#475569" stroke-width="2"/>
+    </g>
+  </g>
+  
+  <!-- Washers -->
+  <g filter="url(#softShadow2)">
+    <g transform="translate(320, 230)">
+      <ellipse cx="0" cy="0" rx="25" ry="8" fill="url(#metalShine)"/>
+      <ellipse cx="0" cy="0" rx="10" ry="3" fill="#94a3b8"/>
+    </g>
+    <g transform="translate(280, 250)">
+      <ellipse cx="0" cy="0" rx="20" ry="6" fill="#475569"/>
+      <ellipse cx="0" cy="0" rx="8" ry="2.5" fill="#1e293b"/>
+    </g>
+  </g>
+  
+  <!-- Spec badge -->
+  <g transform="translate(30, 30)">
+    <rect width="90" height="55" fill="white" rx="10" filter="url(#softShadow2)"/>
+    <text x="45" y="22" font-family="Arial, sans-serif" font-size="8" fill="#9ca3af" text-anchor="middle">QUANTITY</text>
+    <text x="45" y="42" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">500/box</text>
+  </g>
+  
+  <!-- Product code -->
+  <g transform="translate(250, 260)">
+    <rect width="70" height="30" fill="white" rx="15" filter="url(#softShadow2)"/>
+    <text x="35" y="20" font-family="monospace" font-size="11" font-weight="bold" fill="#0ea5e9" text-anchor="middle">FK-200</text>
+  </g>
+</svg>
