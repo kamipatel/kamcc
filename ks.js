@@ -1,5 +1,5 @@
 (function() {
-  // Kingspan Chatbot Widget v2.2 - LARGER WINDOW
+  // Moonshot Chatbot Widget v2.2 - LARGER WINDOW
   
   function init() {
     const CONFIG = {
@@ -196,7 +196,7 @@
       <div id="ks-chat-container" role="dialog" aria-label="Chat with Moonshot Assistant">
         <div id="ks-chat-header">
           <div>
-            <h3>Kingspan Roofing Assistant</h3>
+            <h3>Moonshot Roofing Assistant</h3>
             <p>Ask about TPO, insulation & more</p>
           </div>
           <button id="ks-chat-close" aria-label="Close chat">&times;</button>
@@ -204,7 +204,7 @@
         <div id="ks-chat-messages" role="log" aria-live="polite">
           <div class="ks-msg bot">
             <div class="bubble">
-              👋 Hi! How can I help you with Kingspan roofing products today?
+              👋 Hi! How can I help you with Moonshot roofing products today?
               <div class="ks-quick-btns">
                 <span class="ks-quick-btn" data-q="What TPO membrane options do you have?">TPO Membranes</span>
                 <span class="ks-quick-btn" data-q="Tell me about insulation products">Insulation</span>
