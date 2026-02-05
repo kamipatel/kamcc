@@ -6,11 +6,8 @@
   const CONFIG = {
     SUPABASE_URL: 'https://xlblhwlljdpfgrgedldo.supabase.co',
     SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhsYmxod2xsamRwZmdyZ2VkbGRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyNDg4NTksImV4cCI6MjA4NTgyNDg1OX0.pGrCWwTetdjz6Ru_Cv7yNBNm0RR7acyHOc1D4fILBP8'
-    // Note: SUPABASE_ANON_KEY is safe to expose - it's designed for client-side use
-    // Claude API key is stored securely in Supabase Edge Function environment
   };
 
-  // Inject styles
   const styles = `
     #ks-chat-btn {
       position: fixed;
@@ -187,22 +184,12 @@
       transition: all 0.2s;
     }
     .ks-quick-btn:hover { background: #B8860B; color: white; border-color: #B8860B; }
-    
-    .ks-error {
-      background: #fee;
-      color: #c00;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      margin-top: 6px;
-    }
   `;
 
   const styleEl = document.createElement('style');
   styleEl.textContent = styles;
   document.head.appendChild(styleEl);
 
-  // Create widget HTML
   const widgetHTML = `
     <button id="ks-chat-btn" aria-label="Open chat">
       <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
@@ -242,12 +229,10 @@
   container.innerHTML = widgetHTML;
   document.body.appendChild(container);
 
-  // State
   let isOpen = false;
   let conversationHistory = [];
   let isLoading = false;
 
-  // Elements
   const chatBtn = document.getElementById('ks-chat-btn');
   const chatContainer = document.getElementById('ks-chat-container');
   const closeBtn = document.getElementById('ks-chat-close');
@@ -255,7 +240,6 @@
   const inputEl = document.getElementById('ks-chat-input');
   const sendBtn = document.getElementById('ks-chat-send');
 
-  // Toggle chat
   chatBtn.onclick = () => {
     isOpen = !isOpen;
     chatContainer.classList.toggle('open', isOpen);
@@ -267,7 +251,6 @@
     chatContainer.classList.remove('open');
   };
 
-  // Close on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen) {
       isOpen = false;
@@ -275,7 +258,7 @@
     }
   });
 
-  // Call Supabase Edge Function (SECURE - no API key exposed)
+  // Call the SECURE Edge Function (no API key exposed!)
   async function sendToAPI(message) {
     const response = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/chat`, {
       method: 'POST',
@@ -290,7 +273,6 @@
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
       throw new Error(`API error: ${response.status}`);
     }
 
@@ -303,12 +285,10 @@
     return data.response;
   }
 
-  // Add message to UI
   function addMsg(text, isUser) {
     const div = document.createElement('div');
     div.className = `ks-msg ${isUser ? 'user' : 'bot'}`;
     
-    // Format text: bold, links, line breaks
     const formatted = text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
@@ -320,7 +300,6 @@
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
   }
 
-  // Show/hide typing indicator
   function showTyping() {
     const div = document.createElement('div');
     div.className = 'ks-msg bot';
@@ -335,7 +314,6 @@
     if (el) el.remove();
   }
 
-  // Send message
   async function send() {
     if (isLoading) return;
     
@@ -369,11 +347,9 @@
     inputEl.focus();
   }
 
-  // Event listeners
   sendBtn.onclick = send;
   inputEl.onkeypress = (e) => { if (e.key === 'Enter' && !e.shiftKey) send(); };
 
-  // Quick action buttons
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('ks-quick-btn')) {
       inputEl.value = e.target.dataset.q;
