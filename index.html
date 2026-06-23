@@ -702,7 +702,10 @@
     // ── Chat integration ──────────────────────────────────────────────────────
     window._pendingChatMessage = null;
     window._chatHandlersRegistered = false;
-    window._chatSessionActive = false;   // true only while a live conversation is open
+    // Optimistic: assume a session may be active until a session-end event says otherwise.
+    // This ensures retries fire when the chat is already open and the user clicks Add to Cart.
+    // Set to false only when the conversation explicitly ends, so we never write into a dead session.
+    window._chatSessionActive = true;
 
     // Build rich order message and open chat
     function openChat(productName, price, category) {
@@ -716,13 +719,13 @@
 
       embeddedservice_bootstrap.utilAPI.launchChat();
 
-      // Only schedule blind retries when a session is already active.
-      // If the conversation ended, _chatSessionActive is false — we wait
-      // for onChatEstablished instead so we never write into a dead session.
-      if (window._pendingChatMessage && window._chatSessionActive) {
-        [800, 1600, 2800, 4500].forEach(ms =>
-          setTimeout(trySendMessage, ms)
-        );
+      if (window._pendingChatMessage) {
+        if (window._chatSessionActive) {
+          // Session already live — schedule blind retries; onChatEstablished also covers new starts
+          [800, 1600, 2800, 4500].forEach(ms => setTimeout(trySendMessage, ms));
+        }
+        // If session ended (_chatSessionActive=false), wait for onChatEstablished
+        // (fires when user clicks "New Conversation") — handler below handles it
       }
     }
 
@@ -744,19 +747,19 @@
       if (window._chatHandlersRegistered) return;
       if (typeof embeddedservice_bootstrap === 'undefined') return;
       try {
-        // New conversation started (fires for both fresh starts and after "New Conversation")
+        // New conversation started (fresh start or after "New Conversation" button)
         embeddedservice_bootstrap.addEventHandler('onChatEstablished', function() {
           window._chatSessionActive = true;
           setTimeout(trySendMessage, 600);
         });
-        // Conversation ended by agent or customer — mark session dead
+        // Conversation ended — mark dead so next Add to Cart waits for a new session
         embeddedservice_bootstrap.addEventHandler('onChatEndedByAgent', function() {
           window._chatSessionActive = false;
         });
         embeddedservice_bootstrap.addEventHandler('onChatEndedByChasitor', function() {
           window._chatSessionActive = false;
         });
-        // Widget re-opened while a session is already active (minimized → maximized)
+        // Widget maximized while session is active (minimized → maximized)
         embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingWindowMaximized', function() {
           if (window._chatSessionActive) setTimeout(trySendMessage, 400);
         });
