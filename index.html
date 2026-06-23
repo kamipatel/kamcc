@@ -273,7 +273,7 @@
       <li><a href="#products">Shop</a></li>
       <li><a href="#features">Why Us</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#contact" class="nav-cta">Chat With Us</a></li>
+      <li><a href="#contact" class="nav-cta" onclick="event.preventDefault();openChat()">Chat With Us</a></li>
     </ul>
   </nav>
 
@@ -345,7 +345,7 @@
             <div class="card-cat">Field Sports</div>
             <div class="card-name">Soccer Ball</div>
             <div class="card-desc">Official size 5 match ball, weather-resistant with FIFA-quality construction for all surfaces.</div>
-            <div class="card-footer"><div class="card-price">$29.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$29.99</div><button class="card-btn" onclick="openChat('Soccer Ball')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -355,7 +355,7 @@
             <div class="card-cat">Court Sports</div>
             <div class="card-name">Basketball</div>
             <div class="card-desc">Indoor-outdoor composite leather basketball, size 7 with superior grip texture.</div>
-            <div class="card-footer"><div class="card-price">$49.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$49.99</div><button class="card-btn" onclick="openChat('Basketball')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -365,7 +365,7 @@
             <div class="card-cat">Court Sports</div>
             <div class="card-name">Tennis Racket</div>
             <div class="card-desc">Lightweight graphite frame, ideal for all skill levels. Perfect balance of power and control.</div>
-            <div class="card-footer"><div class="card-price">$79.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$79.99</div><button class="card-btn" onclick="openChat('Tennis Racket')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -375,7 +375,7 @@
             <div class="card-cat">Fitness</div>
             <div class="card-name">Running Shoes</div>
             <div class="card-desc">Breathable mesh with advanced foam midsole for long-distance comfort and maximum support.</div>
-            <div class="card-footer"><div class="card-price">$89.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$89.99</div><button class="card-btn" onclick="openChat('Running Shoes')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -385,7 +385,7 @@
             <div class="card-cat">Fitness</div>
             <div class="card-name">Yoga Mat</div>
             <div class="card-desc">Non-slip 6mm natural rubber mat with alignment markers and carrying strap included.</div>
-            <div class="card-footer"><div class="card-price">$39.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$39.99</div><button class="card-btn" onclick="openChat('Yoga Mat')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -395,7 +395,7 @@
             <div class="card-cat">Outdoor</div>
             <div class="card-name">Cycling Helmet</div>
             <div class="card-desc">Aerodynamic with 18-vent ventilation and adjustable fit system. CPSC certified.</div>
-            <div class="card-footer"><div class="card-price">$59.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$59.99</div><button class="card-btn" onclick="openChat('Cycling Helmet')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -405,7 +405,7 @@
             <div class="card-cat">Outdoor</div>
             <div class="card-name">Swimming Goggles</div>
             <div class="card-desc">Anti-fog, UV protection, wide lens view with silicone seal for a leak-free fit.</div>
-            <div class="card-footer"><div class="card-price">$24.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$24.99</div><button class="card-btn" onclick="openChat('Swimming Goggles')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -415,7 +415,7 @@
             <div class="card-cat">Outdoor</div>
             <div class="card-name">Golf Club Set</div>
             <div class="card-desc">Complete 12-piece beginner set with stand bag — driver, irons, wedge, putter, and head covers.</div>
-            <div class="card-footer"><div class="card-price">$299.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$299.99</div><button class="card-btn" onclick="openChat('Golf Club Set')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -425,7 +425,7 @@
             <div class="card-cat">Court Sports</div>
             <div class="card-name">Badminton Set</div>
             <div class="card-desc">Full set with 2 rackets, net, and 6 shuttlecocks. Perfect for backyard or gym play.</div>
-            <div class="card-footer"><div class="card-price">$34.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$34.99</div><button class="card-btn" onclick="openChat('Badminton Set')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -435,7 +435,7 @@
             <div class="card-cat">Fitness</div>
             <div class="card-name">Jump Rope</div>
             <div class="card-desc">Speed rope with ball-bearing handles, adjustable stainless cable for fast smooth rotations.</div>
-            <div class="card-footer"><div class="card-price">$14.99</div><button class="card-btn">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$14.99</div><button class="card-btn" onclick="openChat('Jump Rope')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -468,7 +468,7 @@
       <h2>Ready to Level Up?</h2>
       <p>Our AI assistant can help you find the right gear, check your orders, and place new ones — all in one chat.</p>
       <div class="cta-actions">
-        <button class="btn-white">
+        <button class="btn-white" onclick="openChat()">
           Chat With Our AI
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </button>
@@ -562,6 +562,62 @@
         if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); }
       });
     });
+
+    // ── Chat integration ──────────────────────────────────────────────────────
+    // Stores the message to send once the chat widget is open and ready.
+    window._pendingChatMessage = null;
+
+    // Opens Embedded Messaging chat. If productName is provided, sends an
+    // order intent message after the chat session is ready.
+    function openChat(productName) {
+      window._pendingChatMessage = productName
+        ? 'I would like to order a ' + productName
+        : null;
+
+      if (typeof embeddedservice_bootstrap === 'undefined') {
+        console.warn('Embedded Messaging not loaded yet.');
+        return;
+      }
+
+      // Open the chat panel
+      embeddedservice_bootstrap.utilAPI.launchChat();
+    }
+
+    // After Embedded Messaging initialises, wire up the "ready" event so we
+    // can send the pending message as soon as the user's session is live.
+    window.addEventListener('onEmbeddedMessagingReady', () => {
+      embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingInitialized', sendPendingMessage);
+      embeddedservice_bootstrap.addEventHandler('onChatEstablished', sendPendingMessage);
+    });
+
+    function sendPendingMessage() {
+      if (!window._pendingChatMessage) return;
+      const msg = window._pendingChatMessage;
+      window._pendingChatMessage = null;
+
+      // Try the utilAPI sendTextMessage (available in newer MIAW builds)
+      try {
+        if (embeddedservice_bootstrap.utilAPI && typeof embeddedservice_bootstrap.utilAPI.sendTextMessage === 'function') {
+          embeddedservice_bootstrap.utilAPI.sendTextMessage(msg);
+          return;
+        }
+      } catch (e) { /* fall through */ }
+
+      // Fallback: pre-populate the chat input field so the user just hits Send
+      setTimeout(() => {
+        const iframe = document.querySelector('iframe[title*="Chat"], iframe[name*="chat"], iframe[id*="esw"]');
+        if (!iframe) return;
+        try {
+          const input = iframe.contentDocument.querySelector('textarea, input[type="text"]');
+          if (input) {
+            input.value = msg;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.focus();
+          }
+        } catch (e) { /* cross-origin iframe — silently skip */ }
+      }, 1200);
+    }
+    // ─────────────────────────────────────────────────────────────────────────
   </script>
 
   <!-- Salesforce Embedded Messaging Chatbot -->
