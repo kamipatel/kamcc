@@ -702,8 +702,8 @@
     // ── Chat integration ──────────────────────────────────────────────────────
     window._pendingChatMessage = null;
     window._chatHandlersRegistered = false;
-    // Start false — only set true when onChatEstablished fires (agent joins).
-    // This prevents messages firing into a dead or not-yet-started conversation.
+    // false = no confirmed live session. Set true only when onChatEstablished fires.
+    // trySendMessage checks this before sending so messages never go into dead sessions.
     window._chatSessionActive = false;
 
     // Build rich order message and open chat
@@ -718,17 +718,17 @@
 
       embeddedservice_bootstrap.utilAPI.launchChat();
 
-      // If a session is already confirmed active, schedule blind retries for the case
-      // where the widget was minimized and is now being reopened (onChatEstablished
-      // won't re-fire). If the session is not active we wait for onChatEstablished.
-      if (window._pendingChatMessage && window._chatSessionActive) {
+      // Always schedule retries — trySendMessage gates on _chatSessionActive so
+      // they silently no-op until the agent joins. onChatEstablished is the reliable
+      // trigger for new sessions; retries cover the minimized-and-reopened case.
+      if (window._pendingChatMessage) {
         [800, 1600, 2800, 4500].forEach(ms => setTimeout(trySendMessage, ms));
       }
     }
 
-    // Attempt to send via utilAPI.sendTextMessage (MIAW public API)
+    // Only sends when session is confirmed live — prevents writing into dead sessions
     function trySendMessage() {
-      if (!window._pendingChatMessage) return;
+      if (!window._pendingChatMessage || !window._chatSessionActive) return;
       try {
         var api = embeddedservice_bootstrap && embeddedservice_bootstrap.utilAPI;
         if (api && typeof api.sendTextMessage === 'function') {
@@ -742,16 +742,16 @@
       if (window._chatHandlersRegistered) return;
       if (typeof embeddedservice_bootstrap === 'undefined') return;
       try {
-        // Agent joins and conversation is live — safe to send
+        // Agent joins — session is live, safe to send pending message
         embeddedservice_bootstrap.addEventHandler('onChatEstablished', function() {
           window._chatSessionActive = true;
           setTimeout(trySendMessage, 400);
         });
-        // MIAW conversation ended event (correct event for Embedded Messaging / MIAW)
+        // Conversation ended (MIAW event) — block sends until next onChatEstablished
         embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationEnded', function() {
           window._chatSessionActive = false;
         });
-        // Widget maximized while a live session exists (minimized → reopened)
+        // Widget reopened while session is still live (minimized → maximized)
         embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingWindowMaximized', function() {
           if (window._chatSessionActive) setTimeout(trySendMessage, 400);
         });
