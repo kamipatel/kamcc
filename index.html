@@ -229,6 +229,35 @@
     .socials a { width: 34px; height: 34px; border-radius: 8px; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: .85rem; transition: background .2s; }
     .socials a:hover { background: var(--accent1); }
 
+    /* Proactive banner */
+    #proactive-banner {
+      position: fixed; bottom: 90px; right: 24px; z-index: 200;
+      transform: translateY(20px); opacity: 0; pointer-events: none;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    #proactive-banner.show { transform: translateY(0); opacity: 1; pointer-events: all; }
+    #proactive-content {
+      display: flex; align-items: center; gap: 12px;
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 14px 16px;
+      box-shadow: 0 8px 32px rgba(15,23,42,.14);
+      max-width: 340px;
+    }
+    #proactive-avatar { font-size: 1.8rem; flex-shrink: 0; }
+    #proactive-text { flex: 1; font-size: .82rem; line-height: 1.4; color: var(--muted); }
+    #proactive-text strong { display: block; color: var(--text); font-size: .88rem; margin-bottom: 2px; }
+    #proactive-cta {
+      padding: 7px 14px; border-radius: 8px; font-size: .8rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff; border: none; cursor: pointer; white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(14,165,233,.3);
+    }
+    #proactive-close {
+      background: none; border: none; color: var(--muted); cursor: pointer;
+      font-size: .85rem; padding: 4px; flex-shrink: 0;
+    }
+    #proactive-close:hover { color: var(--text); }
+
     /* Responsive */
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; }
@@ -496,7 +525,7 @@
       <div>
         <div class="footer-heading">Support</div>
         <ul class="footer-links">
-          <li><a href="#">Track Order</a></li>
+          <li><a href="#" onclick="event.preventDefault();window._pendingChatMessage='I want to check the status of my order.';openChat()">Track Order</a></li>
           <li><a href="#">Returns</a></li>
           <li><a href="#">Sizing Guide</a></li>
           <li><a href="#">FAQ</a></li>
@@ -564,68 +593,108 @@
     });
 
     // ── Chat integration ──────────────────────────────────────────────────────
-    // Stores the message to send once the chat widget is open and ready.
     window._pendingChatMessage = null;
+    window._chatHandlersRegistered = false;
 
-    // Opens Embedded Messaging chat. If product details are provided, sends a
-    // rich order intent message after the chat session is ready.
+    // Build rich order message and open chat
     function openChat(productName, price, category) {
-      if (productName && price && category) {
-        window._pendingChatMessage =
-          "I'd like to order a " + productName +
-          " (" + category + ", $" + price + ")." +
-          " Please help me place this order.";
-      } else if (productName) {
-        window._pendingChatMessage = "I'd like to order a " + productName + ". Please help me place this order.";
-      } else {
-        window._pendingChatMessage = null;
-      }
+      window._pendingChatMessage = productName
+        ? "I'd like to order a " + productName +
+          (price ? " (" + category + ", $" + price + ")" : "") +
+          ". Please help me place this order."
+        : null;
 
-      if (typeof embeddedservice_bootstrap === 'undefined') {
-        console.warn('Embedded Messaging not loaded yet.');
-        return;
-      }
+      if (typeof embeddedservice_bootstrap === 'undefined') return;
 
-      // Open the chat panel
       embeddedservice_bootstrap.utilAPI.launchChat();
+
+      // Retry sending at multiple intervals — handles both new sessions
+      // and cases where the widget was already open/minimized
+      if (window._pendingChatMessage) {
+        [800, 1600, 2800, 4500].forEach(ms =>
+          setTimeout(trySendMessage, ms)
+        );
+      }
     }
 
-    // After Embedded Messaging initialises, wire up the "ready" event so we
-    // can send the pending message as soon as the user's session is live.
-    window.addEventListener('onEmbeddedMessagingReady', () => {
-      embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingInitialized', sendPendingMessage);
-      embeddedservice_bootstrap.addEventHandler('onChatEstablished', sendPendingMessage);
-    });
-
-    function sendPendingMessage() {
+    // Attempt to send via utilAPI.sendTextMessage (MIAW public API)
+    function trySendMessage() {
       if (!window._pendingChatMessage) return;
-      const msg = window._pendingChatMessage;
-      window._pendingChatMessage = null;
-
-      // Try the utilAPI sendTextMessage (available in newer MIAW builds)
       try {
-        if (embeddedservice_bootstrap.utilAPI && typeof embeddedservice_bootstrap.utilAPI.sendTextMessage === 'function') {
-          embeddedservice_bootstrap.utilAPI.sendTextMessage(msg);
-          return;
+        var api = embeddedservice_bootstrap && embeddedservice_bootstrap.utilAPI;
+        if (api && typeof api.sendTextMessage === 'function') {
+          api.sendTextMessage(window._pendingChatMessage);
+          window._pendingChatMessage = null;
         }
-      } catch (e) { /* fall through */ }
+      } catch (e) { /* not yet available — next retry will try again */ }
+    }
 
-      // Fallback: pre-populate the chat input field so the user just hits Send
-      setTimeout(() => {
-        const iframe = document.querySelector('iframe[title*="Chat"], iframe[name*="chat"], iframe[id*="esw"]');
-        if (!iframe) return;
-        try {
-          const input = iframe.contentDocument.querySelector('textarea, input[type="text"]');
-          if (input) {
-            input.value = msg;
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-            input.focus();
-          }
-        } catch (e) { /* cross-origin iframe — silently skip */ }
-      }, 1200);
+    // Register event handlers — call both at page load and on ready event
+    // to avoid missing the event if it fires before our handlers are set
+    function registerChatHandlers() {
+      if (window._chatHandlersRegistered) return;
+      if (typeof embeddedservice_bootstrap === 'undefined') return;
+      try {
+        // New conversation started
+        embeddedservice_bootstrap.addEventHandler('onChatEstablished', function() {
+          setTimeout(trySendMessage, 600);
+        });
+        // Widget re-opened (minimized → maximized) or after ended conversation
+        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingWindowMaximized', function() {
+          setTimeout(trySendMessage, 400);
+        });
+        window._chatHandlersRegistered = true;
+      } catch(e) {}
+    }
+
+    // Try registering immediately (bootstrap may already be loaded)
+    registerChatHandlers();
+    // Also register once the ready event fires
+    window.addEventListener('onEmbeddedMessagingReady', registerChatHandlers);
+
+    // ── Proactive chat: prompt after 45s of browsing ──────────────────────
+    var _proactiveShown = false;
+    setTimeout(function() {
+      if (_proactiveShown) return;
+      if (typeof embeddedservice_bootstrap === 'undefined') return;
+      // Only show if chat isn't already open
+      var chatEl = document.querySelector('.embeddedServiceHelpButton, .esw-fab');
+      if (chatEl) {
+        showProactiveBanner();
+      }
+    }, 45000);
+
+    function showProactiveBanner() {
+      if (_proactiveShown) return;
+      _proactiveShown = true;
+      var banner = document.getElementById('proactive-banner');
+      if (banner) banner.classList.add('show');
+    }
+
+    function dismissProactiveBanner() {
+      var banner = document.getElementById('proactive-banner');
+      if (banner) banner.classList.remove('show');
+    }
+
+    function openChatFromProactive() {
+      dismissProactiveBanner();
+      openChat();
     }
     // ─────────────────────────────────────────────────────────────────────────
   </script>
+
+  <!-- Proactive chat nudge (shown after 45s) -->
+  <div id="proactive-banner">
+    <div id="proactive-content">
+      <div id="proactive-avatar">🤖</div>
+      <div id="proactive-text">
+        <strong>Need help choosing?</strong>
+        <span>Our AI assistant can help you find the right gear and place an order in seconds.</span>
+      </div>
+      <button id="proactive-cta" onclick="openChatFromProactive()">Chat Now</button>
+      <button id="proactive-close" onclick="dismissProactiveBanner()" title="Dismiss">✕</button>
+    </div>
+  </div>
 
   <!-- Salesforce Embedded Messaging Chatbot -->
   <script type='text/javascript'>
