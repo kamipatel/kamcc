@@ -229,6 +229,113 @@
     .socials a { width: 34px; height: 34px; border-radius: 8px; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: .85rem; transition: background .2s; }
     .socials a:hover { background: var(--accent1); }
 
+    /* Cart icon in navbar */
+    .cart-icon-btn {
+      position: relative; background: none; border: none; cursor: pointer;
+      padding: 8px; color: var(--text); display: flex; align-items: center;
+      transition: color .2s;
+    }
+    .cart-icon-btn:hover { color: var(--accent1); }
+    .cart-badge {
+      position: absolute; top: 2px; right: 2px;
+      min-width: 18px; height: 18px; border-radius: 100px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff; font-size: .65rem; font-weight: 800;
+      display: none; align-items: center; justify-content: center;
+      padding: 0 4px; box-shadow: 0 1px 6px rgba(14,165,233,.4);
+    }
+    .cart-badge.show { display: flex; }
+
+    /* Cart drawer */
+    .cart-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(15,23,42,.35); backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 301;
+      width: 380px; max-width: 95vw;
+      background: #fff; box-shadow: -8px 0 40px rgba(15,23,42,.12);
+      display: flex; flex-direction: column;
+      transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+    }
+    .cart-header h3 { font-size: 1.1rem; font-weight: 800; }
+    .cart-header-right { display: flex; align-items: center; gap: 10px; }
+    .cart-close-btn {
+      background: var(--bg); border: none; border-radius: 8px; cursor: pointer;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 1rem; transition: background .2s, color .2s;
+    }
+    .cart-close-btn:hover { background: var(--border); color: var(--text); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px 24px; }
+    .cart-empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; gap: 12px; color: var(--muted); text-align: center;
+    }
+    .cart-empty-icon { font-size: 3rem; }
+    .cart-empty p { font-size: .9rem; }
+    .cart-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+      animation: slideIn .2s ease;
+    }
+    @keyframes slideIn { from{opacity:0;transform:translateX(12px)} to{opacity:1;transform:none} }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item-emoji { font-size: 2rem; width: 48px; height: 48px; background: var(--bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: .9rem; font-weight: 700; color: var(--text); }
+    .cart-item-cat  { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+    .cart-item-price { font-size: .88rem; font-weight: 800; color: var(--accent1); margin-top: 4px; }
+    .cart-item-qty {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .qty-btn {
+      width: 26px; height: 26px; border-radius: 6px; border: 1.5px solid var(--border);
+      background: #fff; cursor: pointer; font-size: .9rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); transition: border-color .15s, background .15s;
+    }
+    .qty-btn:hover { border-color: var(--accent1); background: rgba(14,165,233,.06); }
+    .qty-num { font-size: .88rem; font-weight: 700; min-width: 20px; text-align: center; }
+    .cart-item-remove {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: .85rem; padding: 4px;
+      transition: color .2s;
+    }
+    .cart-item-remove:hover { color: #ef4444; }
+    .cart-footer {
+      padding: 16px 24px 24px; border-top: 1px solid var(--border);
+    }
+    .cart-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .cart-summary-label { font-size: .85rem; color: var(--muted); font-weight: 600; }
+    .cart-total { font-size: 1.2rem; font-weight: 900; color: var(--text); }
+    .cart-order-btn {
+      width: 100%; padding: 14px; border-radius: 12px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff; font-size: .95rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(14,165,233,.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .cart-order-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,165,233,.4); }
+    .cart-order-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+    .cart-clear-btn {
+      width: 100%; margin-top: 8px; padding: 10px; border-radius: 10px;
+      background: none; border: 1.5px solid var(--border); cursor: pointer;
+      font-size: .85rem; font-weight: 600; color: var(--muted);
+      transition: border-color .2s, color .2s;
+    }
+    .cart-clear-btn:hover { border-color: #ef4444; color: #ef4444; }
+
+    /* "Added!" feedback on card button */
+    .card-btn.added { background: linear-gradient(135deg, #059669, #0d9488); box-shadow: 0 2px 8px rgba(5,150,105,.3); }
+
     /* Proactive banner */
     #proactive-banner {
       position: fixed; bottom: 90px; right: 24px; z-index: 200;
@@ -595,6 +702,7 @@
     // ── Chat integration ──────────────────────────────────────────────────────
     window._pendingChatMessage = null;
     window._chatHandlersRegistered = false;
+    window._chatSessionActive = false;   // true only while a live conversation is open
 
     // Build rich order message and open chat
     function openChat(productName, price, category) {
@@ -608,9 +716,10 @@
 
       embeddedservice_bootstrap.utilAPI.launchChat();
 
-      // Retry sending at multiple intervals — handles both new sessions
-      // and cases where the widget was already open/minimized
-      if (window._pendingChatMessage) {
+      // Only schedule blind retries when a session is already active.
+      // If the conversation ended, _chatSessionActive is false — we wait
+      // for onChatEstablished instead so we never write into a dead session.
+      if (window._pendingChatMessage && window._chatSessionActive) {
         [800, 1600, 2800, 4500].forEach(ms =>
           setTimeout(trySendMessage, ms)
         );
@@ -635,13 +744,21 @@
       if (window._chatHandlersRegistered) return;
       if (typeof embeddedservice_bootstrap === 'undefined') return;
       try {
-        // New conversation started
+        // New conversation started (fires for both fresh starts and after "New Conversation")
         embeddedservice_bootstrap.addEventHandler('onChatEstablished', function() {
+          window._chatSessionActive = true;
           setTimeout(trySendMessage, 600);
         });
-        // Widget re-opened (minimized → maximized) or after ended conversation
+        // Conversation ended by agent or customer — mark session dead
+        embeddedservice_bootstrap.addEventHandler('onChatEndedByAgent', function() {
+          window._chatSessionActive = false;
+        });
+        embeddedservice_bootstrap.addEventHandler('onChatEndedByChasitor', function() {
+          window._chatSessionActive = false;
+        });
+        // Widget re-opened while a session is already active (minimized → maximized)
         embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingWindowMaximized', function() {
-          setTimeout(trySendMessage, 400);
+          if (window._chatSessionActive) setTimeout(trySendMessage, 400);
         });
         window._chatHandlersRegistered = true;
       } catch(e) {}
