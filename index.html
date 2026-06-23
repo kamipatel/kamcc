@@ -702,10 +702,9 @@
     // ── Chat integration ──────────────────────────────────────────────────────
     window._pendingChatMessage = null;
     window._chatHandlersRegistered = false;
-    // Optimistic: assume a session may be active until a session-end event says otherwise.
-    // This ensures retries fire when the chat is already open and the user clicks Add to Cart.
-    // Set to false only when the conversation explicitly ends, so we never write into a dead session.
-    window._chatSessionActive = true;
+    // Start false — only set true when onChatEstablished fires (agent joins).
+    // This prevents messages firing into a dead or not-yet-started conversation.
+    window._chatSessionActive = false;
 
     // Build rich order message and open chat
     function openChat(productName, price, category) {
@@ -719,13 +718,11 @@
 
       embeddedservice_bootstrap.utilAPI.launchChat();
 
-      if (window._pendingChatMessage) {
-        if (window._chatSessionActive) {
-          // Session already live — schedule blind retries; onChatEstablished also covers new starts
-          [800, 1600, 2800, 4500].forEach(ms => setTimeout(trySendMessage, ms));
-        }
-        // If session ended (_chatSessionActive=false), wait for onChatEstablished
-        // (fires when user clicks "New Conversation") — handler below handles it
+      // If a session is already confirmed active, schedule blind retries for the case
+      // where the widget was minimized and is now being reopened (onChatEstablished
+      // won't re-fire). If the session is not active we wait for onChatEstablished.
+      if (window._pendingChatMessage && window._chatSessionActive) {
+        [800, 1600, 2800, 4500].forEach(ms => setTimeout(trySendMessage, ms));
       }
     }
 
@@ -738,28 +735,23 @@
           api.sendTextMessage(window._pendingChatMessage);
           window._pendingChatMessage = null;
         }
-      } catch (e) { /* not yet available — next retry will try again */ }
+      } catch (e) { /* not yet ready — next retry will try again */ }
     }
 
-    // Register event handlers — call both at page load and on ready event
-    // to avoid missing the event if it fires before our handlers are set
     function registerChatHandlers() {
       if (window._chatHandlersRegistered) return;
       if (typeof embeddedservice_bootstrap === 'undefined') return;
       try {
-        // New conversation started (fresh start or after "New Conversation" button)
+        // Agent joins and conversation is live — safe to send
         embeddedservice_bootstrap.addEventHandler('onChatEstablished', function() {
           window._chatSessionActive = true;
-          setTimeout(trySendMessage, 600);
+          setTimeout(trySendMessage, 400);
         });
-        // Conversation ended — mark dead so next Add to Cart waits for a new session
-        embeddedservice_bootstrap.addEventHandler('onChatEndedByAgent', function() {
+        // MIAW conversation ended event (correct event for Embedded Messaging / MIAW)
+        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationEnded', function() {
           window._chatSessionActive = false;
         });
-        embeddedservice_bootstrap.addEventHandler('onChatEndedByChasitor', function() {
-          window._chatSessionActive = false;
-        });
-        // Widget maximized while session is active (minimized → maximized)
+        // Widget maximized while a live session exists (minimized → reopened)
         embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingWindowMaximized', function() {
           if (window._chatSessionActive) setTimeout(trySendMessage, 400);
         });
@@ -767,9 +759,7 @@
       } catch(e) {}
     }
 
-    // Try registering immediately (bootstrap may already be loaded)
     registerChatHandlers();
-    // Also register once the ready event fires
     window.addEventListener('onEmbeddedMessagingReady', registerChatHandlers);
 
     // ── Proactive chat: prompt after 45s of browsing ──────────────────────
