@@ -345,7 +345,7 @@
             <div class="card-cat">Field Sports</div>
             <div class="card-name">Soccer Ball</div>
             <div class="card-desc">Official size 5 match ball, weather-resistant with FIFA-quality construction for all surfaces.</div>
-            <div class="card-footer"><div class="card-price">$29.99</div><button class="card-btn" onclick="openChat('Soccer Ball')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$29.99</div><button class="card-btn" onclick="openChat('Soccer Ball','29.99','Field Sports')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -355,7 +355,7 @@
             <div class="card-cat">Court Sports</div>
             <div class="card-name">Basketball</div>
             <div class="card-desc">Indoor-outdoor composite leather basketball, size 7 with superior grip texture.</div>
-            <div class="card-footer"><div class="card-price">$49.99</div><button class="card-btn" onclick="openChat('Basketball')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$49.99</div><button class="card-btn" onclick="openChat('Basketball','49.99','Court Sports')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -365,7 +365,7 @@
             <div class="card-cat">Court Sports</div>
             <div class="card-name">Tennis Racket</div>
             <div class="card-desc">Lightweight graphite frame, ideal for all skill levels. Perfect balance of power and control.</div>
-            <div class="card-footer"><div class="card-price">$79.99</div><button class="card-btn" onclick="openChat('Tennis Racket')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$79.99</div><button class="card-btn" onclick="openChat('Tennis Racket','79.99','Court Sports')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -375,7 +375,7 @@
             <div class="card-cat">Fitness</div>
             <div class="card-name">Running Shoes</div>
             <div class="card-desc">Breathable mesh with advanced foam midsole for long-distance comfort and maximum support.</div>
-            <div class="card-footer"><div class="card-price">$89.99</div><button class="card-btn" onclick="openChat('Running Shoes')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$89.99</div><button class="card-btn" onclick="openChat('Running Shoes','89.99','Fitness')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -385,7 +385,7 @@
             <div class="card-cat">Fitness</div>
             <div class="card-name">Yoga Mat</div>
             <div class="card-desc">Non-slip 6mm natural rubber mat with alignment markers and carrying strap included.</div>
-            <div class="card-footer"><div class="card-price">$39.99</div><button class="card-btn" onclick="openChat('Yoga Mat')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$39.99</div><button class="card-btn" onclick="openChat('Yoga Mat','39.99','Fitness')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -395,7 +395,7 @@
             <div class="card-cat">Outdoor</div>
             <div class="card-name">Cycling Helmet</div>
             <div class="card-desc">Aerodynamic with 18-vent ventilation and adjustable fit system. CPSC certified.</div>
-            <div class="card-footer"><div class="card-price">$59.99</div><button class="card-btn" onclick="openChat('Cycling Helmet')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$59.99</div><button class="card-btn" onclick="openChat('Cycling Helmet','59.99','Outdoor')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -405,7 +405,7 @@
             <div class="card-cat">Outdoor</div>
             <div class="card-name">Swimming Goggles</div>
             <div class="card-desc">Anti-fog, UV protection, wide lens view with silicone seal for a leak-free fit.</div>
-            <div class="card-footer"><div class="card-price">$24.99</div><button class="card-btn" onclick="openChat('Swimming Goggles')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$24.99</div><button class="card-btn" onclick="openChat('Swimming Goggles','24.99','Outdoor')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -415,7 +415,7 @@
             <div class="card-cat">Outdoor</div>
             <div class="card-name">Golf Club Set</div>
             <div class="card-desc">Complete 12-piece beginner set with stand bag — driver, irons, wedge, putter, and head covers.</div>
-            <div class="card-footer"><div class="card-price">$299.99</div><button class="card-btn" onclick="openChat('Golf Club Set')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$299.99</div><button class="card-btn" onclick="openChat('Golf Club Set','299.99','Outdoor')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -425,7 +425,7 @@
             <div class="card-cat">Court Sports</div>
             <div class="card-name">Badminton Set</div>
             <div class="card-desc">Full set with 2 rackets, net, and 6 shuttlecocks. Perfect for backyard or gym play.</div>
-            <div class="card-footer"><div class="card-price">$34.99</div><button class="card-btn" onclick="openChat('Badminton Set')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$34.99</div><button class="card-btn" onclick="openChat('Badminton Set','34.99','Court Sports')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -435,7 +435,7 @@
             <div class="card-cat">Fitness</div>
             <div class="card-name">Jump Rope</div>
             <div class="card-desc">Speed rope with ball-bearing handles, adjustable stainless cable for fast smooth rotations.</div>
-            <div class="card-footer"><div class="card-price">$14.99</div><button class="card-btn" onclick="openChat('Jump Rope')">Add to Cart</button></div>
+            <div class="card-footer"><div class="card-price">$14.99</div><button class="card-btn" onclick="openChat('Jump Rope','14.99','Fitness')">Add to Cart</button></div>
           </div>
         </div>
 
@@ -567,12 +567,19 @@
     // Stores the message to send once the chat widget is open and ready.
     window._pendingChatMessage = null;
 
-    // Opens Embedded Messaging chat. If productName is provided, sends an
-    // order intent message after the chat session is ready.
-    function openChat(productName) {
-      window._pendingChatMessage = productName
-        ? 'I would like to order a ' + productName
-        : null;
+    // Opens Embedded Messaging chat. If product details are provided, sends a
+    // rich order intent message after the chat session is ready.
+    function openChat(productName, price, category) {
+      if (productName && price && category) {
+        window._pendingChatMessage =
+          "I'd like to order a " + productName +
+          " (" + category + ", $" + price + ")." +
+          " Please help me place this order.";
+      } else if (productName) {
+        window._pendingChatMessage = "I'd like to order a " + productName + ". Please help me place this order.";
+      } else {
+        window._pendingChatMessage = null;
+      }
 
       if (typeof embeddedservice_bootstrap === 'undefined') {
         console.warn('Embedded Messaging not loaded yet.');
