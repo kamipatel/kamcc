@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MoonRoof | Premium Commercial Roofing Solutions</title>
+  <title>Ecom Agentforce demo</title>
   <link rel="stylesheet" href="css/main.css">
 </head>
   
@@ -529,24 +529,25 @@
   </script>
 
   <!-- Salesforce Embedded Messaging Chatbot -->
-  <script type='text/javascript'>
-    function initEmbeddedMessaging() {
-      try {
-        embeddedservice_bootstrap.settings.language = 'en_US';
-        embeddedservice_bootstrap.init(
-          '00Dg50000049jnt',
-          'MoonshotSalesAgent',
-          'https://orgfarm-1e55ba86cc-dev-ed.develop.my.site.com/ESWMoonshotSalesAgent1769897408551',
-          {
-            scrt2URL: 'https://orgfarm-1e55ba86cc-dev-ed.develop.my.salesforce-scrt.com'
-          }
-        );
-      } catch (err) {
-        console.error('Error loading Embedded Messaging: ', err);
-      }
-    };
-  </script>
-  <script type='text/javascript' src='https://orgfarm-1e55ba86cc-dev-ed.develop.my.site.com/ESWMoonshotSalesAgent1769897408551/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+<script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+
+			embeddedservice_bootstrap.init(
+				'00DgL00000UVuZJ',
+				'Webchat',
+				'https://trailsignup-a4f2fb2f701fb6.my.site.com/ESWWebchat1782235136929',
+				{
+					scrt2URL: 'https://trailsignup-a4f2fb2f701fb6.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+</script>
+<script type='text/javascript' src='https://trailsignup-a4f2fb2f701fb6.my.site.com/ESWWebchat1782235136929/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
 
 </body>
