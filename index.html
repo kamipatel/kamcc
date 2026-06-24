@@ -632,7 +632,7 @@
       <div>
         <div class="footer-heading">Support</div>
         <ul class="footer-links">
-          <li><a href="#" onclick="event.preventDefault();window._pendingChatMessage='I want to check the status of my order.';openChat()">Track Order</a></li>
+          <li><a href="#" onclick="event.preventDefault();openChat(null,null,null,'I want to check the status of my order.')">Track Order</a></li>
           <li><a href="#">Returns</a></li>
           <li><a href="#">Sizing Guide</a></li>
           <li><a href="#">FAQ</a></li>
@@ -700,65 +700,92 @@
     });
 
     // ── Chat integration ──────────────────────────────────────────────────────
-    window._pendingChatMessage = null;
-    window._chatHandlersRegistered = false;
-    // false = no confirmed live session. Set true only when onChatEstablished fires.
-    // trySendMessage checks this before sending so messages never go into dead sessions.
-    window._chatSessionActive = false;
+    var _pendingChatMessage = null;
+    var _messageSent = false;
+    var _conversationEnded = false;
+    var _chatHandlersRegistered = false;
 
-    // Build rich order message and open chat
-    function openChat(productName, price, category) {
-      window._pendingChatMessage = productName
-        ? "I'd like to order a " + productName +
-          (price ? " (" + category + ", $" + price + ")" : "") +
-          ". Please help me place this order."
-        : null;
+    function openChat(productName, price, category, customMessage) {
+      if (customMessage) {
+        _pendingChatMessage = customMessage;
+      } else {
+        _pendingChatMessage = productName
+          ? "I'd like to order a " + productName + ". Please help me place this order."
+          : null;
+      }
+      _messageSent = false;
 
       if (typeof embeddedservice_bootstrap === 'undefined') return;
-
+      registerChatHandlers();
       embeddedservice_bootstrap.utilAPI.launchChat();
 
-      // Always schedule retries — trySendMessage gates on _chatSessionActive so
-      // they silently no-op until the agent joins. onChatEstablished is the reliable
-      // trigger for new sessions; retries cover the minimized-and-reopened case.
-      if (window._pendingChatMessage) {
-        [800, 1600, 2800, 4500].forEach(ms => setTimeout(trySendMessage, ms));
+      // If a conversation is already active (not ended), no new welcome message will
+      // arrive, so attempt an immediate send after the window has had time to open.
+      if (_pendingChatMessage && !_conversationEnded) {
+        setTimeout(trySendPending, 800);
       }
+      // If the conversation was ended, launchChat() starts a fresh session and the
+      // agent's welcome message will trigger the send via message-exchange handler.
     }
 
-    // Only sends when session is confirmed live — prevents writing into dead sessions
-    function trySendMessage() {
-      if (!window._pendingChatMessage || !window._chatSessionActive) return;
+    function trySendPending() {
+      if (!_pendingChatMessage || _messageSent) return;
       try {
-        var api = embeddedservice_bootstrap && embeddedservice_bootstrap.utilAPI;
-        if (api && typeof api.sendTextMessage === 'function') {
-          api.sendTextMessage(window._pendingChatMessage);
-          window._pendingChatMessage = null;
-        }
-      } catch (e) { /* not yet ready — next retry will try again */ }
+        embeddedservice_bootstrap.utilAPI.sendTextMessage(_pendingChatMessage);
+        _pendingChatMessage = null;
+        _messageSent = true;
+      } catch (e) { /* sendTextMessage not available yet — will retry */ }
     }
 
     function registerChatHandlers() {
-      if (window._chatHandlersRegistered) return;
+      if (_chatHandlersRegistered) return;
       if (typeof embeddedservice_bootstrap === 'undefined') return;
       try {
-        // Agent joins — session is live, safe to send pending message
-        embeddedservice_bootstrap.addEventHandler('onChatEstablished', function() {
-          window._chatSessionActive = true;
-          setTimeout(trySendMessage, 400);
-        });
-        // Conversation ended (MIAW event) — block sends until next onChatEstablished
-        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationEnded', function() {
-          window._chatSessionActive = false;
-        });
-        // Widget reopened while session is still live (minimized → maximized)
+        // Window maximized — reliable signal the MIAW is ready. For active sessions
+        // (no welcome message incoming) this is the best time to send.
         embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingWindowMaximized', function() {
-          if (window._chatSessionActive) setTimeout(trySendMessage, 400);
+          setTimeout(trySendPending, 300);
         });
-        window._chatHandlersRegistered = true;
-      } catch(e) {}
+
+        // Fires on every message in the conversation. When the agent's welcome message
+        // arrives, send the pending product/order message right after the greeting.
+        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationMessageExchange', function(data) {
+          if (!_pendingChatMessage || _messageSent) return;
+          // Only react to agent messages, not the customer's own messages
+          var entry = data && (data.conversationEntry || data.message);
+          var actorType = entry && (entry.actorType || (entry.sender && entry.sender.role));
+          if (actorType !== 'EndUser') {
+            _messageSent = true;
+            setTimeout(function() {
+              if (!_pendingChatMessage) return;
+              try {
+                embeddedservice_bootstrap.utilAPI.sendTextMessage(_pendingChatMessage);
+                _pendingChatMessage = null;
+              } catch (e) {
+                _messageSent = false; // allow retry on next agent message
+              }
+            }, 300);
+          }
+        });
+
+        // When conversation ends, the next openChat() must wait for a new welcome
+        // message before sending — mark the flag so we don't try an immediate send.
+        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationEnded', function() {
+          _conversationEnded = true;
+          _pendingChatMessage = null;
+          _messageSent = false;
+        });
+
+        // Reset the ended flag once a fresh conversation is established
+        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationEstablished', function() {
+          _conversationEnded = false;
+        });
+
+        _chatHandlersRegistered = true;
+      } catch (e) {}
     }
 
+    // Attempt early registration in case bootstrap loaded before this script
     registerChatHandlers();
     window.addEventListener('onEmbeddedMessagingReady', registerChatHandlers);
 
