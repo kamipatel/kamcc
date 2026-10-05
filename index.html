@@ -659,188 +659,15 @@
     </div>
   </footer>
 
-  <script>
-    // Scroll reveal
-    const io = new IntersectionObserver(entries => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 70);
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-    document.querySelectorAll('.product-card, .feat-card, .stat-block').forEach(el => io.observe(el));
-
-    // Category filter
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cat = btn.dataset.cat;
-        document.querySelectorAll('.product-card').forEach(card => {
-          const show = cat === 'all' || card.dataset.cat === cat;
-          card.style.transition = 'opacity .25s, transform .25s';
-          if (show) {
-            card.style.display = 'block';
-            requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; });
-          } else {
-            card.style.opacity = '0'; card.style.transform = 'translateY(16px)';
-            setTimeout(() => { if (card.style.opacity === '0') card.style.display = 'none'; }, 260);
-          }
-        });
-      });
-    });
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); }
-      });
-    });
-
-    // ── Chat integration ──────────────────────────────────────────────────────
-    var _pendingChatMessage = null;
-    var _messageSent = false;
-    var _conversationEnded = false;
-    var _chatHandlersRegistered = false;
-
-    function openChat(productName, price, category, customMessage) {
-      if (customMessage) {
-        _pendingChatMessage = customMessage;
-      } else {
-        _pendingChatMessage = productName
-          ? "I'd like to order a " + productName + ". Please help me place this order."
-          : null;
-      }
-      _messageSent = false;
-
-      if (typeof embeddedservice_bootstrap === 'undefined') return;
-      registerChatHandlers();
-      embeddedservice_bootstrap.utilAPI.launchChat();
-
-      // If a conversation is already active (not ended), no new welcome message will
-      // arrive, so attempt an immediate send after the window has had time to open.
-      if (_pendingChatMessage && !_conversationEnded) {
-        setTimeout(trySendPending, 800);
-      }
-      // If the conversation was ended, launchChat() starts a fresh session and the
-      // agent's welcome message will trigger the send via message-exchange handler.
-    }
-
-    function trySendPending() {
-      if (!_pendingChatMessage || _messageSent) return;
-      try {
-        embeddedservice_bootstrap.utilAPI.sendTextMessage(_pendingChatMessage);
-        _pendingChatMessage = null;
-        _messageSent = true;
-      } catch (e) { /* sendTextMessage not available yet — will retry */ }
-    }
-
-    function registerChatHandlers() {
-      if (_chatHandlersRegistered) return;
-      if (typeof embeddedservice_bootstrap === 'undefined') return;
-      try {
-        // Window maximized — reliable signal the MIAW is ready. For active sessions
-        // (no welcome message incoming) this is the best time to send.
-        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingWindowMaximized', function() {
-          setTimeout(trySendPending, 300);
-        });
-
-        // Fires on every message in the conversation. When the agent's welcome message
-        // arrives, send the pending product/order message right after the greeting.
-        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationMessageExchange', function(data) {
-          if (!_pendingChatMessage || _messageSent) return;
-          // Only react to agent messages, not the customer's own messages
-          var entry = data && (data.conversationEntry || data.message);
-          var actorType = entry && (entry.actorType || (entry.sender && entry.sender.role));
-          if (actorType !== 'EndUser') {
-            _messageSent = true;
-            setTimeout(function() {
-              if (!_pendingChatMessage) return;
-              try {
-                embeddedservice_bootstrap.utilAPI.sendTextMessage(_pendingChatMessage);
-                _pendingChatMessage = null;
-              } catch (e) {
-                _messageSent = false; // allow retry on next agent message
-              }
-            }, 300);
-          }
-        });
-
-        // When conversation ends, the next openChat() must wait for a new welcome
-        // message before sending — mark the flag so we don't try an immediate send.
-        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationEnded', function() {
-          _conversationEnded = true;
-          _pendingChatMessage = null;
-          _messageSent = false;
-        });
-
-        // Reset the ended flag once a fresh conversation is established
-        embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingConversationEstablished', function() {
-          _conversationEnded = false;
-        });
-
-        _chatHandlersRegistered = true;
-      } catch (e) {}
-    }
-
-    // Attempt early registration in case bootstrap loaded before this script
-    registerChatHandlers();
-    window.addEventListener('onEmbeddedMessagingReady', registerChatHandlers);
-
-    // ── Proactive chat: prompt after 45s of browsing ──────────────────────
-    var _proactiveShown = false;
-    setTimeout(function() {
-      if (_proactiveShown) return;
-      if (typeof embeddedservice_bootstrap === 'undefined') return;
-      // Only show if chat isn't already open
-      var chatEl = document.querySelector('.embeddedServiceHelpButton, .esw-fab');
-      if (chatEl) {
-        showProactiveBanner();
-      }
-    }, 45000);
-
-    function showProactiveBanner() {
-      if (_proactiveShown) return;
-      _proactiveShown = true;
-      var banner = document.getElementById('proactive-banner');
-      if (banner) banner.classList.add('show');
-    }
-
-    function dismissProactiveBanner() {
-      var banner = document.getElementById('proactive-banner');
-      if (banner) banner.classList.remove('show');
-    }
-
-    function openChatFromProactive() {
-      dismissProactiveBanner();
-      openChat();
-    }
-    // ─────────────────────────────────────────────────────────────────────────
-  </script>
-
-  <!-- Proactive chat nudge (shown after 45s) -->
-  <div id="proactive-banner">
-    <div id="proactive-content">
-      <div id="proactive-avatar">🤖</div>
-      <div id="proactive-text">
-        <strong>Need help choosing?</strong>
-        <span>Our AI assistant can help you find the right gear and place an order in seconds.</span>
-      </div>
-      <button id="proactive-cta" onclick="openChatFromProactive()">Chat Now</button>
-      <button id="proactive-close" onclick="dismissProactiveBanner()" title="Dismiss">✕</button>
-    </div>
-  </div>
-<script type='text/javascript'>
+  <script type='text/javascript'>
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
 			embeddedservice_bootstrap.init(
 				'00Dfj00000fKdFJ',
-				'ecomweb',
-				'https://trailsignup-88ef692f25eb48.my.site.com/ESWecomweb1789432802894',
+				'meri',
+				'https://trailsignup-88ef692f25eb48.my.site.com/ESWmeri1791234953135',
 				{
 					scrt2URL: 'https://trailsignup-88ef692f25eb48.my.salesforce-scrt.com'
 				}
@@ -850,7 +677,7 @@
 		}
 	};
 </script>
-<script type='text/javascript' src='https://trailsignup-88ef692f25eb48.my.site.com/ESWecomweb1789432802894/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+<script type='text/javascript' src='https://trailsignup-88ef692f25eb48.my.site.com/ESWmeri1791234953135/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
 </body>
 </html>
